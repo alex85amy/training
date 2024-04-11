@@ -1,13 +1,12 @@
 package com.example.training.model.po;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.training.model.config.ChannelTagMappingId;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@IdClass(ChannelTagMappingId.class)
 @Table(name = "channel_tag_mapping")
 @Getter
 @Setter
@@ -19,4 +18,6 @@ public class ChannelTagMapping {
     @Id
     @Column(name = "tag_id")
     private Long tagId;
+
+
 }
