@@ -7,12 +7,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tag_info")
+@Table(name = "p_type_2_info")
 @Getter
 @Setter
-public class tag_info {
+public class PType2Info {
     @Id
-    private int tag_id;
-    private String tag_name;
-    private int type;
+    private String category;
+    private String name;
 }

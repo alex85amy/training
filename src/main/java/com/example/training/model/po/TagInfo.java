@@ -8,15 +8,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "channel_tag_mapping")
+@Table(name = "tag_info")
 @Getter
 @Setter
-public class ChannelTagMapping {
-    @Id
-    @Column(name = "s_area_id")
-    private String sAreaId;
-
+public class TagInfo {
     @Id
     @Column(name = "tag_id")
     private Long tagId;
+
+    @Column(name = "tag_name")
+    private String tagName;
+
+    @Column(name = "type")
+    private Integer type;
 }

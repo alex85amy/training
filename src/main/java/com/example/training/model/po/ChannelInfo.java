@@ -20,7 +20,7 @@ public class ChannelInfo {
     private String sourceId;
 
     @Column(name = "is_used")
-    private int isUsed;
+    private Integer isUsed;
 
     @Column(name = "p_type_2")
     private String pType2;
