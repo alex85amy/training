@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChannelInfoRepository extends JpaRepository<ChannelInfo, String> {
+    ChannelInfo findBySoureAreaId(String soureAreaId);
 }
