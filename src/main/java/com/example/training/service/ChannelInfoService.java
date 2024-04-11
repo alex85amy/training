@@ -23,15 +23,17 @@ public class ChannelInfoService {
         Optional<ChannelInfo> channelInfoOpt = Optional.ofNullable(channelInfoRepository.findBySoureAreaId(soureAreaId));
         if (channelInfoOpt.isPresent()) {
             ChannelInfo channelInfo = channelInfoOpt.get();
-            ChannelInfoDto channelInfoDto = modelMapper.map(channelInfo, ChannelInfoDto.class);
-            return channelInfoDto;
+            return modelMapper.map(channelInfo, ChannelInfoDto.class);
         }
         return null;
     }
 
     public List<ChannelInfoDto> findAll() {
         List<ChannelInfo> channelInfos = channelInfoRepository.findAll();
-        return channelInfos.stream().map(channelInfo -> modelMapper.map(channelInfo, ChannelInfoDto.class)).toList();
+        return channelInfos
+                .stream()
+                .map(channelInfo -> modelMapper.map(channelInfo, ChannelInfoDto.class))
+                .toList();
     }
 
     public void add(ChannelInfoDto channelInfoDto) {

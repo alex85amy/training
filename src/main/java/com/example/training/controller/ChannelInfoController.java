@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/training")
-public class restcontroller {
+public class ChannelInfoController {
 
     @GetMapping("/")
     public String index(){
