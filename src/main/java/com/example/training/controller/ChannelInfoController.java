@@ -1,17 +1,41 @@
 package com.example.training.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.training.model.dto.ChannelInfoDto;
+import com.example.training.service.ChannelInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/training")
+@RequestMapping("/ChannelInfo")
 public class ChannelInfoController {
+    @Autowired
+    private ChannelInfoService channelInfoService;
 
-    @GetMapping("/")
-    public String index(){
-        return "";
+    @GetMapping("/all")
+    public String index() {
+        return channelInfoService.findAll().toString();
     }
 
+    @GetMapping("/{id}")
+    public String findById(@PathVariable("id") String id) {
+        return channelInfoService.getChannelInfoById(id).toString();
+    }
+
+    @PostMapping("/add")
+    public String add(ChannelInfoDto channelInfoDto) {
+        channelInfoService.add(channelInfoDto);
+        return "sucess";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable("id") String id) {
+        channelInfoService.delete(id);
+        return "sucess";
+    }
+
+    @PutMapping("/update/{id}")
+    public String update(@PathVariable("id") String id,ChannelInfoDto channelInfoDto){
+        channelInfoService.update(channelInfoDto,id);
+        return "sucess";
+    }
 }
