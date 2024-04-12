@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ChannelInfoDto {
-    private String soureAreaId;
+    private String sourceAreaId;
     private String sourceId;
     private Integer isUsed;
     private String pType2;

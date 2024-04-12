@@ -13,8 +13,8 @@ import lombok.Setter;
 @Setter
 public class ChannelInfo {
     @Id
-    @Column(name = "soure_area_id")
-    private String soureAreaId;
+    @Column(name = "source_area_id")
+    private String sourceAreaId;
 
     @Column(name = "source_id")
     private String sourceId;

@@ -19,8 +19,8 @@ public class ChannelInfoService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public ChannelInfoDto getChannelInfoById(String soureAreaId) {
-        Optional<ChannelInfo> channelInfoOpt = Optional.ofNullable(channelInfoRepository.findBySoureAreaId(soureAreaId));
+    public ChannelInfoDto getChannelInfoById(String sourceAreaId) {
+        Optional<ChannelInfo> channelInfoOpt = Optional.ofNullable(channelInfoRepository.findBySourceAreaId(sourceAreaId));
         if (channelInfoOpt.isPresent()) {
             ChannelInfo channelInfo = channelInfoOpt.get();
             return modelMapper.map(channelInfo, ChannelInfoDto.class);
@@ -41,8 +41,8 @@ public class ChannelInfoService {
         channelInfoRepository.save(channelInfo);
     }
 
-    public void update(ChannelInfoDto channelInfoDto, String soureAreaId) {
-        Optional<ChannelInfo> channelInfoOpt = Optional.ofNullable(channelInfoRepository.findBySoureAreaId(soureAreaId));
+    public void update(ChannelInfoDto channelInfoDto, String sourceAreaId) {
+        Optional<ChannelInfo> channelInfoOpt = Optional.ofNullable(channelInfoRepository.findBySourceAreaId(sourceAreaId));
         if (channelInfoOpt.isPresent()) {
             ChannelInfo channelInfo = channelInfoOpt.get();
             channelInfo.setIsUsed(channelInfoDto.getIsUsed());
@@ -52,8 +52,8 @@ public class ChannelInfoService {
         }
     }
 
-    public void delete(String soureAreaId) {
-        Optional<ChannelInfo> channelInfoOpt = Optional.ofNullable(channelInfoRepository.findBySoureAreaId(soureAreaId));
+    public void delete(String sourceAreaId) {
+        Optional<ChannelInfo> channelInfoOpt = Optional.ofNullable(channelInfoRepository.findBySourceAreaId(sourceAreaId));
         if (channelInfoOpt.isPresent()) {
             channelInfoRepository.delete(channelInfoOpt.get());
         }
