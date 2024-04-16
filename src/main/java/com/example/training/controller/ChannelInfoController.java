@@ -1,41 +1,39 @@
 package com.example.training.controller;
 
-import com.example.training.model.dto.ChannelInfoDto;
-import com.example.training.service.ChannelInfoService;
+import com.company.bean.ChannelInfo;
+import com.company.daoimpl.ChannelInfoDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/ChannelInfo")
+@RequestMapping("/channel_info")
 public class ChannelInfoController {
+
     @Autowired
-    private ChannelInfoService channelInfoService;
+    ChannelInfoDaoImpl channelInfoDao;
 
     @GetMapping("/all")
     public String index() {
-        return channelInfoService.findAll().toString();
+        return channelInfoDao.findAll().toString();
     }
 
     @GetMapping("/{id}")
-    public String findById(@PathVariable("id") String id) {
-        return channelInfoService.getChannelInfoById(id).toString();
+    public String findChannelInfoById(@PathVariable("id") String id) {
+        return channelInfoDao.findBySourceAreaId(id).toString();
     }
 
     @PostMapping("/add")
-    public String add(ChannelInfoDto channelInfoDto) {
-        channelInfoService.add(channelInfoDto);
-        return "sucess";
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable("id") String id) {
-        channelInfoService.delete(id);
-        return "sucess";
+    public void addChannelInfo(ChannelInfo channelInfo) {
+        channelInfoDao.add(channelInfo);
     }
 
     @PutMapping("/update/{id}")
-    public String update(@PathVariable("id") String id,ChannelInfoDto channelInfoDto){
-        channelInfoService.update(channelInfoDto,id);
-        return "sucess";
+    public void updateChannelInfo(@PathVariable("id") String id, ChannelInfo channelInfo) {
+        channelInfoDao.update(id, channelInfo);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void removeChannelInfo(@PathVariable("id") String id) {
+        channelInfoDao.delete(id);
     }
 }
