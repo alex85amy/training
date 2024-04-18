@@ -2,15 +2,16 @@ package com.example.training.controller;
 
 import com.company.bean.ChannelTagMapping;
 import com.company.daoimpl.ChannelTagMappingDaoImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/channel_tag_mapping")
 public class ChannelTagMappingController {
+    private static final String URL = "jdbc:mysql://localhost:3306/training?serverTimezone=Asia/Taipei&characterEncoding=utf-8&useUnicode=true";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "abc123";
 
-    @Autowired
-    ChannelTagMappingDaoImpl channelTagMappingDao;
+    ChannelTagMappingDaoImpl channelTagMappingDao = new ChannelTagMappingDaoImpl();
 
     @GetMapping("/all")
     public String index() {
@@ -18,13 +19,8 @@ public class ChannelTagMappingController {
     }
 
     @GetMapping("/{id}")
-    public String findChannelTagMappingByTagId(@PathVariable("id") int id) {
-        return channelTagMappingDao.findByTagId(id).toString();
-    }
-
-    @GetMapping("/source_id/{source_id}")
-    public String findChannelTagMappingBySourceId(@PathVariable("source_id") String source_id){
-        return  channelTagMappingDao.findBySourceAreaId(source_id).toString();
+    public String findChannelTagMappingById(@PathVariable("id") int id) {
+        return channelTagMappingDao.findById(id).toString();
     }
 
     @PostMapping("/add")
@@ -32,9 +28,13 @@ public class ChannelTagMappingController {
         channelTagMappingDao.add(channelTagMapping);
     }
 
-    @DeleteMapping("/delete/{sourceareaid}/{id}")
-    public void removeChannelTagMapping(@PathVariable("sourceareaid") String sourceAreaId,
-                                        @PathVariable("id") int id) {
-        channelTagMappingDao.delete(sourceAreaId, id);
+    @PutMapping("/{id}")
+    public void update(@PathVariable("id") int id, ChannelTagMapping channelTagMapping){
+        channelTagMappingDao.update(id,channelTagMapping);
+    }
+
+    @DeleteMapping("/{id}")
+    public void removeChannelTagMapping(@PathVariable("id") int id) {
+        channelTagMappingDao.delete(id);
     }
 }

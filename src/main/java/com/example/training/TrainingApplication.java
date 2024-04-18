@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.company")
+@ComponentScan("com.example")
 public class TrainingApplication {
 
     public static void main(String[] args) {

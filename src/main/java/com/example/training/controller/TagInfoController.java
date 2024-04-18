@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/tag_info")
 public class TagInfoController {
+    private static final String URL = "jdbc:mysql://localhost:3306/training?serverTimezone=Asia/Taipei&characterEncoding=utf-8&useUnicode=true";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "abc123";
 
-    @Autowired
-    TagInfoDaoImpl tagInfoDao;
+    TagInfoDaoImpl tagInfoDao = new TagInfoDaoImpl();
 
     @GetMapping("/all")
     public String index() {
@@ -27,12 +29,12 @@ public class TagInfoController {
         tagInfoDao.add(tagInfo);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public void updateTagInfo(@PathVariable("id") int id, TagInfo tagInfo) {
         tagInfoDao.update(id, tagInfo);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void removeTagInfo(@PathVariable("id") int id) {
         tagInfoDao.delete(id);
     }
