@@ -17,9 +17,9 @@ public class ChannelInfoController {
         return channelInfoDao.findAll().toString();
     }
 
-    @GetMapping("/{id}")
-    public String findChannelInfoById(@PathVariable("id") String id) {
-        return channelInfoDao.findBySourceAreaId(id).toString();
+    @GetMapping("/{source_id}")
+    public String findChannelInfoById(@PathVariable("source_id") String source_id) {
+        return channelInfoDao.findBySourceAreaId(source_id).toString();
     }
 
     @PostMapping("/add")
@@ -27,13 +27,13 @@ public class ChannelInfoController {
         channelInfoDao.add(channelInfo);
     }
 
-    @PutMapping("/update/{id}")
-    public void updateChannelInfo(@PathVariable("id") String id, ChannelInfo channelInfo) {
-        channelInfoDao.update(id, channelInfo);
+    @PutMapping("/update/{source_id}")
+    public void updateChannelInfo(@PathVariable("source_id") String source_id, ChannelInfo channelInfo) {
+        channelInfoDao.update(source_id, channelInfo);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void removeChannelInfo(@PathVariable("id") String id) {
-        channelInfoDao.delete(id);
+    @DeleteMapping("/delete/{source_id}")
+    public void removeChannelInfo(@PathVariable("source_id") String source_id) {
+        channelInfoDao.delete(source_id);
     }
 }

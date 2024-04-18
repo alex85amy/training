@@ -18,8 +18,13 @@ public class ChannelTagMappingController {
     }
 
     @GetMapping("/{id}")
-    public String findChannelTagMappingById(@PathVariable("id") int id) {
+    public String findChannelTagMappingByTagId(@PathVariable("id") int id) {
         return channelTagMappingDao.findByTagId(id).toString();
+    }
+
+    @GetMapping("/source_id/{source_id}")
+    public String findChannelTagMappingBySourceId(@PathVariable("source_id") String source_id){
+        return  channelTagMappingDao.findBySourceAreaId(source_id).toString();
     }
 
     @PostMapping("/add")

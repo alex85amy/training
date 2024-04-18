@@ -8,10 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("com.company")
 public class TrainingApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		SpringApplication.run(TrainingApplication.class, args);
+        SpringApplication.run(TrainingApplication.class, args);
 
-	}
+    }
 
 }

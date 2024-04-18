@@ -17,9 +17,9 @@ public class PType2InfoController {
         return pType2InfoDao.findAll().toString();
     }
 
-    @GetMapping("/{id}")
-    public String findPType2InfoById(@PathVariable("id") String id) {
-        return pType2InfoDao.findByCategory(id).toString();
+    @GetMapping("/{category}")
+    public String findPType2InfoById(@PathVariable("category") String category) {
+        return pType2InfoDao.findByCategory(category).toString();
     }
 
     @PostMapping("/add")
@@ -27,14 +27,14 @@ public class PType2InfoController {
         pType2InfoDao.add(pType2Info);
     }
 
-    @PutMapping("/update/{id}")
-    public void updatePType2Info(@PathVariable("id") String id, PType2Info pType2Info) {
-        pType2InfoDao.update(id, pType2Info);
+    @PutMapping("/update/{category}")
+    public void updatePType2Info(@PathVariable("category") String category, PType2Info pType2Info) {
+        pType2InfoDao.update(category, pType2Info);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void removePType2Info(@PathVariable("id") String id) {
-        pType2InfoDao.delete(id);
+    @DeleteMapping("/delete/{category}")
+    public void removePType2Info(@PathVariable("category") String category) {
+        pType2InfoDao.delete(category);
     }
 
 }
