@@ -2,7 +2,10 @@ package com.example.training.controller;
 
 import com.company.bean.PType2Info;
 import com.company.daoimpl.PType2InfoDaoImpl;
+import com.company.util.ResultSetToJson;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.*;
 
 @RestController
 @RequestMapping("/p_type_2_info")
@@ -16,6 +19,22 @@ public class PType2InfoController {
     @GetMapping("/all")
     public String index() {
         return pType2InfoDao.findAll().toString();
+    }
+
+    @GetMapping("/per_page/{per_page}/page/{page}")
+    public String findpagedata(@PathVariable("per_page") int per_page,
+                               @PathVariable("page") int page) {
+        int offset = (page - 1) * per_page;
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+             Statement statement = conn.createStatement()) {
+            String insertSQL = "SELECT * FROM p_type_2_info LIMIT " + per_page + " OFFSET " + offset;
+            ResultSet rs = statement.executeQuery(insertSQL);
+            return ResultSetToJson.ResultSetToJsonObject(rs, "p_type_2_info").toString();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
     @GetMapping("/{id}")
