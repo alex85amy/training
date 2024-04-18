@@ -2,15 +2,13 @@ package com.example.training.controller;
 
 import com.company.bean.ChannelTagMapping;
 import com.company.daoimpl.ChannelTagMappingDaoImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/channel_tag_mapping")
 public class ChannelTagMappingController {
 
-    @Autowired
-    ChannelTagMappingDaoImpl channelTagMappingDao;
+    ChannelTagMappingDaoImpl channelTagMappingDao = new ChannelTagMappingDaoImpl();
 
     @GetMapping("/all")
     public String index() {
@@ -23,8 +21,8 @@ public class ChannelTagMappingController {
     }
 
     @GetMapping("/source_id/{source_id}")
-    public String findChannelTagMappingBySourceId(@PathVariable("source_id") String source_id){
-        return  channelTagMappingDao.findBySourceAreaId(source_id).toString();
+    public String findChannelTagMappingBySourceId(@PathVariable("source_id") String source_id) {
+        return channelTagMappingDao.findBySourceAreaId(source_id).toString();
     }
 
     @PostMapping("/add")

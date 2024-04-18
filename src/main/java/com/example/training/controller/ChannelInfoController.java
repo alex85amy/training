@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/channel_info")
 public class ChannelInfoController {
 
-    @Autowired
-    ChannelInfoDaoImpl channelInfoDao;
+    ChannelInfoDaoImpl channelInfoDao = new ChannelInfoDaoImpl();
 
     @GetMapping("/all")
     public String index() {

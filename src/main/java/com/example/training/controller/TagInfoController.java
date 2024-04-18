@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/tag_info")
 public class TagInfoController {
 
-    @Autowired
-    TagInfoDaoImpl tagInfoDao;
+    TagInfoDaoImpl tagInfoDao = new TagInfoDaoImpl();
 
     @GetMapping("/all")
     public String index() {

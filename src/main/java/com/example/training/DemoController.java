@@ -1,11 +1,13 @@
-package com.example.training.controller;
+package com.example.training;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/hello")
 public class DemoController {
-    @RequestMapping("/hello")
+    @GetMapping("/")
     public String hello() throws Exception {
         return "HelloWorld ,Spring Boot!";
     }

@@ -2,15 +2,13 @@ package com.example.training.controller;
 
 import com.company.bean.PType2Info;
 import com.company.daoimpl.PType2InfoDaoImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/p_type_2_info")
 public class PType2InfoController {
 
-    @Autowired
-    PType2InfoDaoImpl pType2InfoDao;
+    PType2InfoDaoImpl pType2InfoDao = new PType2InfoDaoImpl();
 
     @GetMapping("/all")
     public String index() {
