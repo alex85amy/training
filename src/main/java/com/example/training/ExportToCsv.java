@@ -48,29 +48,25 @@ public class ExportToCsv {
     }
 
 
-    String insertSQL = "SELECT category,tag_type,tag_name,count " +
-            "FROM (" +
-            "SELECT p.category AS category,t.type AS tag_type,t.tag_name AS tag_name," +
-            " IFNULL(COUNT(c.source_area_id), 0) AS count" +
-            " FROM p_type_2_info p" +
-            " CROSS JOIN tag_info t" +
-            " LEFT JOIN" +
-            " channel_tag_mapping m ON t.tag_id = m.tag_id" +
-            " LEFT JOIN" +
-            " channel_info c ON m.s_area_id = c.source_area_id AND c.is_used = 1 AND c.p_type_2 = p.category" +
-            " WHERE p.category IS NOT NULL" +
-            " GROUP BY p.category, t.tag_name, t.type" +
-            " UNION ALL" +
-            " SELECT p.category AS category, t.type AS tag_type," +
-            " NULL AS tag_name, COUNT(DISTINCT c.source_area_id) AS count" +
-            " FROM channel_info c" +
-            " JOIN p_type_2_info p ON c.p_type_2 = p.category" +
-            " JOIN channel_tag_mapping m ON c.source_area_id = m.s_area_id" +
-            " JOIN tag_info t ON m.tag_id = t.tag_id" +
-            " GROUP BY p.category, t.type" +
-            ")" +
-            " AS combined_data" +
-            " ORDER BY category, tag_type, tag_name;";
+    String insertSQL = "SELECT " +
+            "    t.tag_name AS tag_name," +
+            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'news'  THEN c.source_area_id ELSE NULL END) AS '新聞'," +
+            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'blog'  THEN c.source_area_id ELSE NULL END) AS '部落格'," +
+            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'forum'  THEN c.source_area_id ELSE NULL END) AS '討論區'," +
+            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'social'  THEN c.source_area_id ELSE NULL END) AS '社群網站'," +
+            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'comment'  THEN c.source_area_id ELSE NULL END) AS '評論'," +
+            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'qa'  THEN c.source_area_id ELSE NULL END) AS '問答網站'," +
+            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'video'  THEN c.source_area_id ELSE NULL END) AS '影音'" +
+            " FROM " +
+            "    tag_info t" +
+            " LEFT JOIN " +
+            "    channel_tag_mapping m ON t.tag_id = m.tag_id" +
+            " LEFT JOIN " +
+            "    channel_info c ON m.s_area_id = c.source_area_id" +
+            " GROUP BY " +
+            "    t.tag_name" +
+            " ORDER BY " +
+            "    MAX(t.type), t.tag_name;";
 }
 
 
