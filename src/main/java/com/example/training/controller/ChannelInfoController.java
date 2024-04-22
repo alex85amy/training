@@ -1,8 +1,10 @@
 package com.example.training.controller;
 
-import com.company.bean.ChannelInfo;
-import com.company.daoimpl.ChannelInfoDaoImpl;
-import com.company.util.ResultSetToJson;
+import com.example.training.bean.ChannelInfo;
+import com.example.training.dao.ChannelInfoDao;
+import com.example.training.daoimpl.ChannelInfoDaoImpl;
+import com.example.training.util.JDBC;
+import com.example.training.util.ResultSetToJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/channel_info")
 public class ChannelInfoController {
-    private static final String URL = "jdbc:mysql://localhost:3306/training?serverTimezone=Asia/Taipei&characterEncoding=utf-8&useUnicode=true";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "abc123";
 
-    ChannelInfoDaoImpl channelInfoDao = new ChannelInfoDaoImpl();
+    JDBC jdbc = new JDBC();
+    ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl();
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @GetMapping("/all")
@@ -30,7 +30,7 @@ public class ChannelInfoController {
     public String findpagedata(@PathVariable("per_page") int per_page,
                                @PathVariable("page") int page) {
         int offset = (page - 1) * per_page;
-        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_info LIMIT " + per_page + " OFFSET " + offset;
             ResultSet rs = statement.executeQuery(insertSQL);

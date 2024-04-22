@@ -1,24 +1,26 @@
 package com.example.training.controller;
 
-import com.company.bean.ChannelTagMapping;
-import com.company.daoimpl.ChannelTagMappingDaoImpl;
-import com.company.util.ResultSetToJson;
+import com.example.training.bean.ChannelTagMapping;
+import com.example.training.dao.ChannelTagMappingDao;
+import com.example.training.daoimpl.ChannelTagMappingDaoImpl;
+import com.example.training.util.JDBC;
+import com.example.training.util.ResultSetToJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 @RestController
 @RequestMapping("/channel_tag_mapping")
 public class ChannelTagMappingController {
-    private static final String URL = "jdbc:mysql://localhost:3306/training?serverTimezone=Asia/Taipei&characterEncoding=utf-8&useUnicode=true";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "abc123";
 
-    ChannelTagMappingDaoImpl channelTagMappingDao = new ChannelTagMappingDaoImpl();
-
+    JDBC jdbc = new JDBC();
+    ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl();
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @GetMapping("/all")
@@ -31,7 +33,7 @@ public class ChannelTagMappingController {
     public String findpagedata(@PathVariable("per_page") int per_page,
                                @PathVariable("page") int page) {
         int offset = (page - 1) * per_page;
-        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_tag_mapping LIMIT " + per_page + " OFFSET " + offset;
             ResultSet rs = statement.executeQuery(insertSQL);

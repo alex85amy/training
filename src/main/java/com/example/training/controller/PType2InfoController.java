@@ -1,23 +1,26 @@
 package com.example.training.controller;
 
-import com.company.bean.PType2Info;
-import com.company.daoimpl.PType2InfoDaoImpl;
-import com.company.util.ResultSetToJson;
+import com.example.training.bean.PType2Info;
+import com.example.training.dao.PType2InfoDao;
+import com.example.training.daoimpl.PType2InfoDaoImpl;
+import com.example.training.util.JDBC;
+import com.example.training.util.ResultSetToJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 @RestController
 @RequestMapping("/p_type_2_info")
 public class PType2InfoController {
-    private static final String URL = "jdbc:mysql://localhost:3306/training?serverTimezone=Asia/Taipei&characterEncoding=utf-8&useUnicode=true";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "abc123";
 
-    PType2InfoDaoImpl pType2InfoDao = new PType2InfoDaoImpl();
+    JDBC jdbc = new JDBC();
+    PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl();
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @GetMapping("/all")
@@ -30,7 +33,7 @@ public class PType2InfoController {
     public String findpagedata(@PathVariable("per_page") int per_page,
                                @PathVariable("page") int page) {
         int offset = (page - 1) * per_page;
-        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM p_type_2_info LIMIT " + per_page + " OFFSET " + offset;
             ResultSet rs = statement.executeQuery(insertSQL);
