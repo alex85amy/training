@@ -4,11 +4,14 @@ import com.example.training.bean.TagInfo;
 import com.example.training.dao.TagInfoDao;
 import com.example.training.util.JDBC;
 import com.example.training.util.ResultSetToJson;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 
 public class TagInfoDaoImpl implements TagInfoDao {
 

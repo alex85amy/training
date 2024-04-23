@@ -3,9 +3,8 @@ package com.example.training.controller;
 import com.example.training.bean.ChannelInfo;
 import com.example.training.dao.ChannelInfoDao;
 import com.example.training.daoimpl.ChannelInfoDaoImpl;
-import com.example.training.util.JDBC;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +13,8 @@ import java.util.List;
 @RequestMapping("/channel_info")
 public class ChannelInfoController {
 
-    ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl();
-    Logger logger = LoggerFactory.getLogger(getClass());
+    private ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl();
+    private Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
     public String index() {

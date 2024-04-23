@@ -3,8 +3,8 @@ package com.example.training.controller;
 import com.example.training.bean.PType2Info;
 import com.example.training.dao.PType2InfoDao;
 import com.example.training.daoimpl.PType2InfoDaoImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,8 +13,8 @@ import java.util.List;
 @RequestMapping("/p_type_2_info")
 public class PType2InfoController {
 
-    PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl();
-    Logger logger = LoggerFactory.getLogger(getClass());
+    private PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl();
+    private Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
     public String index() {

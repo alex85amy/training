@@ -15,7 +15,6 @@ public class JDBC {
         try {
             Class.forName(driverName);
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            System.out.println("Connection success");
         } catch (Exception e) {
             e.printStackTrace();
         }

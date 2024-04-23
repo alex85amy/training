@@ -3,8 +3,8 @@ package com.example.training.controller;
 import com.example.training.bean.ChannelTagMapping;
 import com.example.training.dao.ChannelTagMappingDao;
 import com.example.training.daoimpl.ChannelTagMappingDaoImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,8 +13,8 @@ import java.util.List;
 @RequestMapping("/channel_tag_mapping")
 public class ChannelTagMappingController {
 
-    ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl();
-    Logger logger = LoggerFactory.getLogger(getClass());
+    private ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl();
+    private Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
     public String index() {
@@ -25,8 +25,8 @@ public class ChannelTagMappingController {
     @GetMapping("/per_page/{per_page}/page/{page}")
     public String findpagedata(@PathVariable("per_page") int per_page,
                                @PathVariable("page") int page) {
-            logger.info("findChannelTagMapping page: " + page + " in per_page: " + per_page);
-            return channelTagMappingDao.findpagedata(per_page, page);
+        logger.info("findChannelTagMapping page: " + page + " in per_page: " + per_page);
+        return channelTagMappingDao.findpagedata(per_page, page);
     }
 
     @GetMapping("/{id}")

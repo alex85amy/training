@@ -3,8 +3,8 @@ package com.example.training.controller;
 import com.example.training.bean.TagInfo;
 import com.example.training.dao.TagInfoDao;
 import com.example.training.daoimpl.TagInfoDaoImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,8 +13,8 @@ import java.util.List;
 @RequestMapping("/tag_info")
 public class TagInfoController {
 
-    TagInfoDao tagInfoDao = new TagInfoDaoImpl();
-    Logger logger = LoggerFactory.getLogger(getClass());
+    private TagInfoDao tagInfoDao = new TagInfoDaoImpl();
+    private Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
     public String index() {

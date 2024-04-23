@@ -1,8 +1,8 @@
 package com.example.training.controller;
 
 import com.example.training.ExportToCsv;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/export")
 public class ExportController {
 
-    Logger logger = LoggerFactory.getLogger(getClass());
+    private Logger logger = LogManager.getLogger();
 
     @GetMapping("/")
     public String export() {
