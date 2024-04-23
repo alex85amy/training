@@ -14,6 +14,8 @@ public interface ChannelTagMappingDao {
 
     String findById(int id);
 
+    String findpagedata(int per_page, int page);
+
     String findBySourceAreaId(String sourceAreaId);
 
     String findByTagId(int tagId);

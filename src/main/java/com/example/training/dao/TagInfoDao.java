@@ -11,5 +11,7 @@ public interface TagInfoDao {
 
     String findByTagId(int tagId);
 
+    String findpagedata(int per_page, int page);
+
     String findAll();
 }

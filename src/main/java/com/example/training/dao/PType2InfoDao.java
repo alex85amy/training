@@ -12,5 +12,7 @@ public interface PType2InfoDao {
 
     String findById(int id);
 
+    String findpagedata(int per_page, int page);
+
     String findAll();
 }

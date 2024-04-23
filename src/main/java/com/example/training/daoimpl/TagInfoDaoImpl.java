@@ -71,6 +71,21 @@ public class TagInfoDaoImpl implements TagInfoDao {
     }
 
     @Override
+    public String findpagedata(int per_page, int page) {
+        int offset = (page - 1) * per_page;
+        try (Connection conn = jdbc.getConnection();
+             Statement statement = conn.createStatement()) {
+            String insertSQL = "SELECT * FROM tag_info LIMIT " + per_page + " OFFSET " + offset;
+            ResultSet rs = statement.executeQuery(insertSQL);
+            return ResultSetToJson.ResultSetToJsonString(rs, "tag_info");
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public String findAll() {
         try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {

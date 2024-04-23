@@ -4,52 +4,36 @@ import com.example.training.bean.ChannelInfo;
 import com.example.training.dao.ChannelInfoDao;
 import com.example.training.daoimpl.ChannelInfoDaoImpl;
 import com.example.training.util.JDBC;
-import com.example.training.util.ResultSetToJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 @RestController
 @RequestMapping("/channel_info")
 public class ChannelInfoController {
 
-    JDBC jdbc = new JDBC();
     ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl();
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @GetMapping("/all")
     public String index() {
         logger.info("findAll channel_info");
-        return channelInfoDao.findAll().toString();
+        return channelInfoDao.findAll();
     }
 
     @GetMapping("/per_page/{per_page}/page/{page}")
     public String findpagedata(@PathVariable("per_page") int per_page,
                                @PathVariable("page") int page) {
-        int offset = (page - 1) * per_page;
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
-            String insertSQL = "SELECT * FROM channel_info LIMIT " + per_page + " OFFSET " + offset;
-            ResultSet rs = statement.executeQuery(insertSQL);
-            logger.info("findChannelInfo page: " + page + " in per_page: " + per_page);
-            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_info").toString();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
+        logger.info("findChannelInfo page: " + page + " in per_page: " + per_page);
+        return channelInfoDao.findpagedata(per_page, page);
     }
 
     @GetMapping("/{id}")
     public String findChannelInfoById(@PathVariable("id") int id) {
         logger.info("findChannelInfoById: " + id);
-        return channelInfoDao.findById(id).toString();
+        return channelInfoDao.findById(id);
     }
 
     @PostMapping("/add")

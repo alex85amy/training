@@ -82,6 +82,21 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
     }
 
     @Override
+    public String findpagedata(int per_page, int page) {
+        int offset = (page - 1) * per_page;
+        try (Connection conn = jdbc.getConnection();
+             Statement statement = conn.createStatement()) {
+            String insertSQL = "SELECT * FROM channel_info LIMIT " + per_page + " OFFSET " + offset;
+            ResultSet rs = statement.executeQuery(insertSQL);
+            return ResultSetToJson.ResultSetToJsonString(rs, "channel_info");
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public void addBatch(List<ChannelInfo> channelInfoList) {
         try (Connection conn = jdbc.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(
