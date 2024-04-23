@@ -57,12 +57,12 @@ public class TagInfoDaoImpl implements TagInfoDao {
     }
 
     @Override
-    public Object findByTagId(int tagId) {
+    public String findByTagId(int tagId) {
         try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM tag_info WHERE tag_id=" + tagId;
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs, "tag_info");
+            return ResultSetToJson.ResultSetToJsonString(rs, "tag_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -71,12 +71,12 @@ public class TagInfoDaoImpl implements TagInfoDao {
     }
 
     @Override
-    public Object findAll() {
+    public String findAll() {
         try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM tag_info";
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs, "tag_info");
+            return ResultSetToJson.ResultSetToJsonString(rs, "tag_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

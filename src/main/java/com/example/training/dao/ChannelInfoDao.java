@@ -12,9 +12,9 @@ public interface ChannelInfoDao {
 
     boolean update(int id, ChannelInfo channelInfo);
 
-    Object findById(int id);
+    String findById(int id);
 
-    Object findAll();
+    String findAll();
 
     void addBatch(List<ChannelInfo> channelInfoList);
 }

@@ -12,13 +12,13 @@ public interface ChannelTagMappingDao {
 
     boolean update(int id, ChannelTagMapping channelTagMapping);
 
-    Object findById(int id);
+    String findById(int id);
 
-    Object findBySourceAreaId(String sourceAreaId);
+    String findBySourceAreaId(String sourceAreaId);
 
-    Object findByTagId(int tagId);
+    String findByTagId(int tagId);
 
-    Object findAll();
+    String findAll();
 
     void addBatch(List<ChannelTagMapping> channelTagMappingList);
 }

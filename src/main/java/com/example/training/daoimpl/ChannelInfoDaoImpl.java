@@ -54,12 +54,12 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
     }
 
     @Override
-    public Object findById(int id) {
+    public String findById(int id) {
         try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_info WHERE auto_id=" + id;
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_info");
+            return ResultSetToJson.ResultSetToJsonString(rs, "channel_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -68,12 +68,12 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
     }
 
     @Override
-    public Object findAll() {
+    public String findAll() {
         try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_info";
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_info");
+            return ResultSetToJson.ResultSetToJsonString(rs, "channel_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

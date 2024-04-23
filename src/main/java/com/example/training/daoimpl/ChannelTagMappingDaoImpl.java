@@ -55,12 +55,12 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
     }
 
     @Override
-    public Object findById(int id) {
+    public String findById(int id) {
         try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_tag_mapping WHERE auto_id =" + id;
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_tag_mapping");
+            return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -69,12 +69,12 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
     }
 
     @Override
-    public Object findBySourceAreaId(String sourceAreaId) {
+    public String findBySourceAreaId(String sourceAreaId) {
         try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_tag_mapping WHERE s_area_id ='" + sourceAreaId + "'";
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_tag_mapping");
+            return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -83,12 +83,12 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
     }
 
     @Override
-    public Object findByTagId(int tagId) {
+    public String findByTagId(int tagId) {
         try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_tag_mapping WHERE tag_id =" + tagId;
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_tag_mapping");
+            return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -97,12 +97,12 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
     }
 
     @Override
-    public Object findAll() {
+    public String findAll() {
         try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_tag_mapping";
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_tag_mapping");
+            return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

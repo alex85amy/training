@@ -9,7 +9,7 @@ public interface TagInfoDao {
 
     boolean update(int tagId, TagInfo tagInfo);
 
-    Object findByTagId(int tagId);
+    String findByTagId(int tagId);
 
-    Object findAll();
+    String findAll();
 }

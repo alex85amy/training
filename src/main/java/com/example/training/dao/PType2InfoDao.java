@@ -10,7 +10,7 @@ public interface PType2InfoDao {
 
     boolean update(int id, PType2Info pType2Info);
 
-    Object findById(int id);
+    String findById(int id);
 
-    Object findAll();
+    String findAll();
 }
