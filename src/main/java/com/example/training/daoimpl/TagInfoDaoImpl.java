@@ -99,8 +99,9 @@ public class TagInfoDaoImpl implements TagInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
     @Override

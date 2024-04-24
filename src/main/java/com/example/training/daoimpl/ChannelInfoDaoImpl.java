@@ -142,8 +142,9 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
 }

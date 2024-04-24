@@ -168,8 +168,9 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
 

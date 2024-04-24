@@ -7,10 +7,10 @@ import com.example.training.util.JDBC;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 
 public class PType2InfoService {
-
     private JDBC jdbc = new JDBC();
     private Connection conn = jdbc.getConnection();
     private Logger logger = LogManager.getLogger();

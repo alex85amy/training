@@ -1,6 +1,6 @@
 package com.example.training.controller;
 
-import com.example.training.ExportToCsv;
+import com.example.training.util.ExportToCsv;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,9 @@ public class ExportController {
     private Logger logger = LogManager.getLogger();
 
     @GetMapping("/")
-    public String export() {
+    public void export() {
         ExportToCsv export = new ExportToCsv();
         export.exportQueryResultToCsv();
         logger.info("export output.csv");
-        return "export output.csv";
     }
 }

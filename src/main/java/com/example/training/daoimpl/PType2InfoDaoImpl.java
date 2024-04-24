@@ -140,8 +140,9 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
 }

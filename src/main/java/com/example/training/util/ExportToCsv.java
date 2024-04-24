@@ -1,18 +1,23 @@
-package com.example.training;
+package com.example.training.util;
 
-import java.io.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
 public class ExportToCsv {
-    private static final String URL = "jdbc:mysql://localhost:3306/training?serverTimezone=Asia/Taipei&characterEncoding=utf-8&useUnicode=true";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "abc123";
+    private JDBC jdbc = new JDBC();
+    private Connection conn = jdbc.getConnection();
+    private Logger logger = LogManager.getLogger();
 
     public void exportQueryResultToCsv() {
 
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-             Statement statement = connection.createStatement();
+        try (Statement statement = conn.createStatement();
              ResultSet resultSet = statement.executeQuery(insertSQL);
              PrintWriter csvWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream("output.csv"), StandardCharsets.UTF_8))) {
 
@@ -43,12 +48,12 @@ public class ExportToCsv {
             System.out.println("CSV file exported successfully!");
 
         } catch (SQLException | IOException e) {
-            System.err.println("Error exporting data to CSV: " + e.getMessage());
+            logger.error("Error exporting data to CSV: " + e.getMessage());
         }
     }
 
 
-    String insertSQL = "SELECT " +
+    private String insertSQL = "SELECT " +
             "    t.tag_name AS tag_name," +
             "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'news'  THEN c.source_area_id ELSE NULL END) AS '新聞'," +
             "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'blog'  THEN c.source_area_id ELSE NULL END) AS '部落格'," +
