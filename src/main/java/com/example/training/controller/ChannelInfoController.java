@@ -1,8 +1,7 @@
 package com.example.training.controller;
 
 import com.example.training.bean.ChannelInfo;
-import com.example.training.dao.ChannelInfoDao;
-import com.example.training.daoimpl.ChannelInfoDaoImpl;
+import com.example.training.service.ChannelInfoService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
@@ -13,45 +12,45 @@ import java.util.List;
 @RequestMapping("/channel_info")
 public class ChannelInfoController {
 
-    private ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl();
+    private ChannelInfoService channelInfoService = new ChannelInfoService();
     private Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
     public String index() {
         logger.info("findAll channel_info");
-        return channelInfoDao.findAll();
+        return channelInfoService.findAll();
     }
 
     @GetMapping("/per_page/{per_page}/page/{page}")
     public String findpagedata(@PathVariable("per_page") int per_page,
                                @PathVariable("page") int page) {
         logger.info("findChannelInfo page: " + page + " in per_page: " + per_page);
-        return channelInfoDao.findpagedata(per_page, page);
+        return channelInfoService.findpagedata(per_page, page);
     }
 
     @GetMapping("/{id}")
     public String findChannelInfoById(@PathVariable("id") int id) {
         logger.info("findChannelInfoById: " + id);
-        return channelInfoDao.findById(id);
+        return channelInfoService.findById(id);
     }
 
     @PostMapping("/add")
     public void addChannelInfo(@RequestBody List<ChannelInfo> channelInfos) {
         for (ChannelInfo channelInfo : channelInfos) {
-            channelInfoDao.add(channelInfo);
+            channelInfoService.add(channelInfo);
         }
         logger.info("addChannelInfo");
     }
 
     @PutMapping("/{id}")
     public void updateChannelInfo(@PathVariable("id") int id, ChannelInfo channelInfo) {
-        channelInfoDao.update(id, channelInfo);
+        channelInfoService.update(id, channelInfo);
         logger.info("updateChannelInfo ID: " + id);
     }
 
     @DeleteMapping("/{id}")
     public void removeChannelInfo(@PathVariable("id") int id) {
-        channelInfoDao.delete(id);
+        channelInfoService.delete(id);
         logger.info("removeChannelInfo ID: " + id);
     }
 }

@@ -2,6 +2,8 @@ package com.example.training.dao;
 
 import com.example.training.bean.TagInfo;
 
+import java.util.List;
+
 public interface TagInfoDao {
     void add(TagInfo tagInfo);
 
@@ -14,4 +16,6 @@ public interface TagInfoDao {
     String findpagedata(int per_page, int page);
 
     String findAll();
+
+    void addBatch(List<TagInfo> tagInfoList);
 }
