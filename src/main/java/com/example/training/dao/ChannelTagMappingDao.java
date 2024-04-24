@@ -20,6 +20,8 @@ public interface ChannelTagMappingDao {
 
     String findByTagId(int tagId);
 
+    String findBySIdAndTagId(String sourceAreaId, int tagId);
+
     String findAll();
 
     void addBatch(List<ChannelTagMapping> channelTagMappingList);

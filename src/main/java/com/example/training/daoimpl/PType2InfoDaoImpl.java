@@ -90,6 +90,20 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
     }
 
     @Override
+    public String findByCategoryOrName(String category, String name) {
+        try (Statement statement = conn.createStatement()) {
+            String insertSQL = "SELECT * FROM p_type_2_info WHERE category='" + category + "'OR name='" + name +"'";
+            ResultSet rs = statement.executeQuery(insertSQL);
+            return ResultSetToJson.ResultSetToJsonString(rs, "p_type_2_info");
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
+        }
+    }
+
+    @Override
     public void addBatch(List<PType2Info> pType2InfoList) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "INSERT INTO p_type_2_info(category, name) VALUES (?, ?)")

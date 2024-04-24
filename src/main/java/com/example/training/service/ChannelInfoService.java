@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
-import java.util.List;
 
 public class ChannelInfoService {
 
@@ -18,15 +17,27 @@ public class ChannelInfoService {
     private ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl(conn);
 
     public void add(ChannelInfo channelInfo) {
-        channelInfoDao.add(channelInfo);
+        String data = channelInfoDao.findBySourceAreaId(channelInfo.getSourceAreaId());
+        if (data == null) {
+            channelInfoDao.add(channelInfo);
+        }
+        logger.error("新增失敗: 資料重複");
     }
 
     public void delete(int id) {
-        channelInfoDao.delete(id);
+        String data = channelInfoDao.findById(id);
+        if (data != null) {
+            channelInfoDao.delete(id);
+        }
+        logger.error("刪除失敗: 無此資料");
     }
 
     public void update(int id, ChannelInfo channelInfo) {
-        channelInfoDao.update(id, channelInfo);
+        String data = channelInfoDao.findById(id);
+        if (data != null) {
+            channelInfoDao.update(id, channelInfo);
+        }
+        logger.error("修改失敗: 無此資料");
     }
 
     public String findById(int id) {
@@ -41,7 +52,4 @@ public class ChannelInfoService {
         return channelInfoDao.findpagedata(per_page, page);
     }
 
-    public void addBatch(List<ChannelInfo> channelInfoList) {
-        channelInfoDao.addBatch(channelInfoList);
-    }
 }

@@ -18,5 +18,7 @@ public interface PType2InfoDao {
 
     String findAll();
 
+    String findByCategoryOrName(String category, String name);
+
     void addBatch(List<PType2Info> pType2InfoList);
 }

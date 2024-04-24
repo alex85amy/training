@@ -17,6 +17,8 @@ public interface ChannelInfoDao {
 
     String findAll();
 
+    String findBySourceAreaId(String sourceAreaId);
+
     String findpagedata(int per_page, int page);
 
     void addBatch(List<ChannelInfo> channelInfoList);

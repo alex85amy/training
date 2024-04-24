@@ -90,6 +90,20 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
     }
 
     @Override
+    public String findBySourceAreaId(String sourceAreaId) {
+        try (Statement statement = conn.createStatement()) {
+            String insertSQL = "SELECT * FROM channel_info WHERE source_area_id='" + sourceAreaId + "'";
+            ResultSet rs = statement.executeQuery(insertSQL);
+            return ResultSetToJson.ResultSetToJsonString(rs, "channel_info");
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
+        }
+    }
+
+    @Override
     public void addBatch(List<ChannelInfo> channelInfoList) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "INSERT INTO channel_info(source_id, source_area_id, is_used, p_type_2) VALUES (?, ?, ?, ?)")

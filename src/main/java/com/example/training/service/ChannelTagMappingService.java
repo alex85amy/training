@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
-import java.util.List;
 
 public class ChannelTagMappingService {
 
@@ -18,15 +17,27 @@ public class ChannelTagMappingService {
     private ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl(conn);
 
     public void add(ChannelTagMapping channelTagMapping) {
-        channelTagMappingDao.add(channelTagMapping);
+        String data = channelTagMappingDao.findBySIdAndTagId(channelTagMapping.getSourceAreaId(), channelTagMapping.getTagId());
+        if (data == null) {
+            channelTagMappingDao.add(channelTagMapping);
+        }
+        logger.error("新增失敗: 資料重複");
     }
 
     public void delete(int id) {
-        channelTagMappingDao.delete(id);
+        String data = channelTagMappingDao.findById(id);
+        if (data != null) {
+            channelTagMappingDao.delete(id);
+        }
+        logger.error("刪除失敗: 無此資料");
     }
 
     public void update(int id, ChannelTagMapping channelTagMapping) {
-        channelTagMappingDao.update(id, channelTagMapping);
+        String data = channelTagMappingDao.findById(id);
+        if (data != null) {
+            channelTagMappingDao.update(id, channelTagMapping);
+        }
+        logger.error("修改失敗: 無此資料");
     }
 
     public String findById(int id) {
@@ -47,10 +58,6 @@ public class ChannelTagMappingService {
 
     public String findAll() {
         return channelTagMappingDao.findAll();
-    }
-
-    public void addBatch(List<ChannelTagMapping> channelTagMappingList) {
-        channelTagMappingDao.addBatch(channelTagMappingList);
     }
 
 }

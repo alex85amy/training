@@ -103,6 +103,20 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
     }
 
     @Override
+    public String findBySIdAndTagId(String sourceAreaId, int tagId) {
+        try (Statement statement = conn.createStatement()) {
+            String insertSQL = "SELECT * FROM channel_tag_mapping WHERE s_area_id ='" + sourceAreaId + "'AND　tag_id =" + tagId;
+            ResultSet rs = statement.executeQuery(insertSQL);
+            return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
+        }
+    }
+
+    @Override
     public String findAll() {
         try (Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_tag_mapping";
