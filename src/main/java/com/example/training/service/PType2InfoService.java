@@ -2,19 +2,17 @@ package com.example.training.service;
 
 import com.example.training.bean.PType2Info;
 import com.example.training.dao.PType2InfoDao;
-import com.example.training.daoimpl.PType2InfoDaoImpl;
 import com.example.training.util.JDBC;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 
 public class PType2InfoService {
     private JDBC jdbc = new JDBC();
     private Connection conn = jdbc.getConnection();
     private Logger logger = LogManager.getLogger();
-    private PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl(conn);
+    private PType2InfoDao pType2InfoDao = new PType2InfoDao(conn);
 
 
     public void add(PType2Info pType2Info) {

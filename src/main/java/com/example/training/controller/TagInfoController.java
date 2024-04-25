@@ -2,7 +2,6 @@ package com.example.training.controller;
 
 import com.example.training.bean.TagInfo;
 import com.example.training.dao.TagInfoDao;
-import com.example.training.daoimpl.TagInfoDaoImpl;
 import com.example.training.service.TagInfoService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

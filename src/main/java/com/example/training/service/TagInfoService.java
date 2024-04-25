@@ -2,7 +2,6 @@ package com.example.training.service;
 
 import com.example.training.bean.TagInfo;
 import com.example.training.dao.TagInfoDao;
-import com.example.training.daoimpl.TagInfoDaoImpl;
 import com.example.training.util.JDBC;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +13,7 @@ public class TagInfoService {
     private JDBC jdbc = new JDBC();
     private Connection conn = jdbc.getConnection();
     private Logger logger = LogManager.getLogger();
-    private TagInfoDao tagInfoDao = new TagInfoDaoImpl(conn);
+    private TagInfoDao tagInfoDao = new TagInfoDao(conn);
 
     public void add(TagInfo tagInfo) {
         String data = tagInfoDao.findByTagId(tagInfo.getTagId());

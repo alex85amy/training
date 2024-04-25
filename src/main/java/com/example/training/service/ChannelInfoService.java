@@ -2,7 +2,6 @@ package com.example.training.service;
 
 import com.example.training.bean.ChannelInfo;
 import com.example.training.dao.ChannelInfoDao;
-import com.example.training.daoimpl.ChannelInfoDaoImpl;
 import com.example.training.util.JDBC;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +13,7 @@ public class ChannelInfoService {
     private JDBC jdbc = new JDBC();
     private Connection conn = jdbc.getConnection();
     private Logger logger = LogManager.getLogger();
-    private ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl(conn);
+    private ChannelInfoDao channelInfoDao = new ChannelInfoDao(conn);
 
     public void add(ChannelInfo channelInfo) {
         String data = channelInfoDao.findBySourceAreaId(channelInfo.getSourceAreaId());

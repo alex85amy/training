@@ -2,7 +2,6 @@ package com.example.training.service;
 
 import com.example.training.bean.ChannelTagMapping;
 import com.example.training.dao.ChannelTagMappingDao;
-import com.example.training.daoimpl.ChannelTagMappingDaoImpl;
 import com.example.training.util.JDBC;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +13,7 @@ public class ChannelTagMappingService {
     private JDBC jdbc = new JDBC();
     private Connection conn = jdbc.getConnection();
     private Logger logger = LogManager.getLogger();
-    private ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl(conn);
+    private ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDao(conn);
 
     public void add(ChannelTagMapping channelTagMapping) {
         String data = channelTagMappingDao.findBySIdAndTagId(channelTagMapping.getSourceAreaId(), channelTagMapping.getTagId());
