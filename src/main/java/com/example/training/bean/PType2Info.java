@@ -3,6 +3,9 @@ package com.example.training.bean;
 import com.google.gson.annotations.SerializedName;
 
 public class PType2Info {
+    @SerializedName("auto_id")
+    private int autoId;
+
     @SerializedName("category")
     private String category;
 
@@ -12,9 +15,23 @@ public class PType2Info {
     public PType2Info() {
     }
 
+    public PType2Info(int autoId, String category, String name) {
+        this.autoId = autoId;
+        this.category = category;
+        this.name = name;
+    }
+
     public PType2Info(String category, String name) {
         this.category = category;
         this.name = name;
+    }
+
+    public int getAutoId() {
+        return autoId;
+    }
+
+    public void setAutoId(int autoId) {
+        this.autoId = autoId;
     }
 
     public String getCategory() {

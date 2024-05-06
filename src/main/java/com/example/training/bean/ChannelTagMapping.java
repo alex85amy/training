@@ -4,6 +4,9 @@ package com.example.training.bean;
 import com.google.gson.annotations.SerializedName;
 
 public class ChannelTagMapping {
+    @SerializedName("auto_id")
+    private int autoId;
+
     @SerializedName("s_area_id")
     private String sourceAreaId;
 
@@ -13,9 +16,23 @@ public class ChannelTagMapping {
     public ChannelTagMapping() {
     }
 
+    public ChannelTagMapping(int autoId, String sourceAreaId, int tagId) {
+        this.autoId = autoId;
+        this.sourceAreaId = sourceAreaId;
+        this.tagId = tagId;
+    }
+
     public ChannelTagMapping(String sourceAreaId, int tagId) {
         this.sourceAreaId = sourceAreaId;
         this.tagId = tagId;
+    }
+
+    public int getAutoId() {
+        return autoId;
+    }
+
+    public void setAutoId(int autoId) {
+        this.autoId = autoId;
     }
 
     public String getSourceAreaId() {

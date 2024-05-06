@@ -16,21 +16,21 @@ public class PType2InfoController {
     private Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
-    public String index() {
+    public List<PType2Info> index() {
         logger.info("findAll p_type_2_info");
         return pType2InfoService.findAll();
     }
 
-    @GetMapping("/per_page/{per_page}/page/{page}")
-    public String findpagedata(@PathVariable("per_page") int per_page,
+    @GetMapping("/amount/{amount}/page/{page}")
+    public List<PType2Info> findPageData(@PathVariable("amount") int amount,
                                @PathVariable("page") int page) {
-        logger.info("findPType2Info page: " + page + " in per_page: " + per_page);
-        return pType2InfoService.findpagedata(per_page, page);
+        logger.info("findPType2Info page: " + page + " in per_page: " + amount);
+        return pType2InfoService.findPageData(amount, page);
 
     }
 
     @GetMapping("/{id}")
-    public String findPType2InfoById(@PathVariable("id") int id) {
+    public PType2Info findPType2InfoById(@PathVariable("id") int id) {
         logger.info("findPType2InfoById: " + id);
         return pType2InfoService.findById(id);
     }

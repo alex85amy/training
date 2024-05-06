@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class ChannelTagMappingService {
 
@@ -16,7 +17,7 @@ public class ChannelTagMappingService {
     private ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDao(conn);
 
     public void add(ChannelTagMapping channelTagMapping) {
-        String data = channelTagMappingDao.findBySIdAndTagId(channelTagMapping.getSourceAreaId(), channelTagMapping.getTagId());
+        ChannelTagMapping data = channelTagMappingDao.findBySIdAndTagId(channelTagMapping.getSourceAreaId(), channelTagMapping.getTagId());
         if (data == null) {
             channelTagMappingDao.add(channelTagMapping);
         }
@@ -24,7 +25,7 @@ public class ChannelTagMappingService {
     }
 
     public void delete(int id) {
-        String data = channelTagMappingDao.findById(id);
+        ChannelTagMapping data = channelTagMappingDao.findById(id);
         if (data != null) {
             channelTagMappingDao.delete(id);
         }
@@ -32,30 +33,30 @@ public class ChannelTagMappingService {
     }
 
     public void update(int id, ChannelTagMapping channelTagMapping) {
-        String data = channelTagMappingDao.findById(id);
+        ChannelTagMapping data = channelTagMappingDao.findById(id);
         if (data != null) {
             channelTagMappingDao.update(id, channelTagMapping);
         }
         logger.error("修改失敗: 無此資料");
     }
 
-    public String findById(int id) {
+    public ChannelTagMapping findById(int id) {
         return channelTagMappingDao.findById(id);
     }
 
-    public String findpagedata(int per_page, int page) {
-        return channelTagMappingDao.findpagedata(per_page, page);
+    public List<ChannelTagMapping> findPageData(int amount, int page) {
+        return channelTagMappingDao.findPageData(amount, page);
     }
 
-    public String findBySourceAreaId(String sourceAreaId) {
+    public ChannelTagMapping findBySourceAreaId(String sourceAreaId) {
         return channelTagMappingDao.findBySourceAreaId(sourceAreaId);
     }
 
-    public String findByTagId(int tagId) {
+    public ChannelTagMapping findByTagId(int tagId) {
         return channelTagMappingDao.findByTagId(tagId);
     }
 
-    public String findAll() {
+    public List<ChannelTagMapping> findAll() {
         return channelTagMappingDao.findAll();
     }
 

@@ -1,7 +1,6 @@
 package com.example.training.dao;
 
 import com.example.training.bean.ChannelTagMapping;
-import com.example.training.util.ResultSetToJson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelTagMappingDao {
@@ -67,12 +67,16 @@ public class ChannelTagMappingDao {
     }
 
 
-    public String findById(int id) {
+    public ChannelTagMapping findById(int id) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_tag_mapping WHERE auto_id = ?")) {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
+            rs.next();
+            String sourceAreaId = rs.getString("s_area_id");
+            int tagId = rs.getInt("tag_id");
+
+            return new ChannelTagMapping(id, sourceAreaId, tagId);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -82,12 +86,16 @@ public class ChannelTagMappingDao {
     }
 
 
-    public String findBySourceAreaId(String sourceAreaId) {
+    public ChannelTagMapping findBySourceAreaId(String sourceAreaId) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_tag_mapping WHERE s_area_id = ?")) {
             preparedStatement.setString(1, sourceAreaId);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
+            rs.next();
+            int autoId = rs.getInt("auto_id");
+            int tagId = rs.getInt("tag_id");
+
+            return new ChannelTagMapping(autoId, sourceAreaId, tagId);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -97,12 +105,16 @@ public class ChannelTagMappingDao {
     }
 
 
-    public String findByTagId(int tagId) {
+    public ChannelTagMapping findByTagId(int tagId) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_tag_mapping WHERE tag_id = ?")) {
             preparedStatement.setInt(1, tagId);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
+            rs.next();
+            int autoId = rs.getInt("auto_id");
+            String sourceAreaId = rs.getString("s_area_id");
+
+            return new ChannelTagMapping(autoId, sourceAreaId, tagId);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -112,13 +124,16 @@ public class ChannelTagMappingDao {
     }
 
 
-    public String findBySIdAndTagId(String sourceAreaId, int tagId) {
+    public ChannelTagMapping findBySIdAndTagId(String sourceAreaId, int tagId) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_tag_mapping WHERE s_area_id = ? AND　tag_id = ?")) {
             preparedStatement.setString(1, sourceAreaId);
             preparedStatement.setInt(2, tagId);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
+            rs.next();
+            int autoId = rs.getInt("auto_id");
+
+            return new ChannelTagMapping(autoId, sourceAreaId, tagId);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -128,12 +143,19 @@ public class ChannelTagMappingDao {
     }
 
 
-    public String findAll() {
+    public List<ChannelTagMapping> findAll() {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_tag_mapping")) {
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
-
+            List<ChannelTagMapping> list = new ArrayList<>();
+            while (rs.next()) {
+                int autoId = rs.getInt("auto_id");
+                String sourceAreaId = rs.getString("s_area_id");
+                int tagId = rs.getInt("tag_id");
+                ChannelTagMapping channelTagMapping = new ChannelTagMapping(autoId, sourceAreaId, tagId);
+                list.add(channelTagMapping);
+            }
+            return list;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             logger.error(throwables.toString());
@@ -170,15 +192,22 @@ public class ChannelTagMappingDao {
     }
 
 
-    public String findpagedata(int per_page, int page) {
-        int offset = (page - 1) * per_page;
+    public List<ChannelTagMapping> findPageData(int amount, int page) {
+        int offset = (page - 1) * amount;
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_tag_mapping LIMIT ? OFFSET ?")) {
-            preparedStatement.setInt(1, per_page);
+            preparedStatement.setInt(1, amount);
             preparedStatement.setInt(2, offset);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
-
+            List<ChannelTagMapping> list = new ArrayList<>();
+            while (rs.next()) {
+                int autoId = rs.getInt("auto_id");
+                String sourceAreaId = rs.getString("s_area_id");
+                int tagId = rs.getInt("tag_id");
+                ChannelTagMapping channelTagMapping = new ChannelTagMapping(autoId, sourceAreaId, tagId);
+                list.add(channelTagMapping);
+            }
+            return list;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             logger.error(throwables.toString());

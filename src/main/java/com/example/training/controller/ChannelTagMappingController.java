@@ -16,20 +16,20 @@ public class ChannelTagMappingController {
     private Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
-    public String index() {
+    public List<ChannelTagMapping> index() {
         logger.info("findAll channel_tag_mapping");
         return channelTagMappingService.findAll();
     }
 
-    @GetMapping("/per_page/{per_page}/page/{page}")
-    public String findpagedata(@PathVariable("per_page") int per_page,
+    @GetMapping("/amount/{amount}/page/{page}")
+    public List<ChannelTagMapping> findPageData(@PathVariable("amount") int amount,
                                @PathVariable("page") int page) {
-        logger.info("findChannelTagMapping page: " + page + " in per_page: " + per_page);
-        return channelTagMappingService.findpagedata(per_page, page);
+        logger.info("findChannelTagMapping page: " + page + " in per_page: " + amount);
+        return channelTagMappingService.findPageData(amount, page);
     }
 
     @GetMapping("/{id}")
-    public String findChannelTagMappingById(@PathVariable("id") int id) {
+    public ChannelTagMapping findChannelTagMappingById(@PathVariable("id") int id) {
         logger.info("findChannelTagMappingById: " + id);
         return channelTagMappingService.findById(id);
     }

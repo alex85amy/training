@@ -3,7 +3,7 @@ package com.example.training.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -15,13 +15,13 @@ public class ExportToCsv {
     private Connection conn = jdbc.getConnection();
     private Logger logger = LogManager.getLogger();
 
-    public void exportQueryResultToCsv() {
+    public byte[] exportCsv() {
 
-        try (Statement statement = conn.createStatement();
-             ResultSet resultSet = statement.executeQuery(insertSQL);
-             PrintWriter csvWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream("output.csv"), StandardCharsets.UTF_8))) {
-
-
+        try
+            (Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(insertSQL);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            PrintWriter csvWriter = new PrintWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8))){
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columnCount = metaData.getColumnCount();
 
@@ -45,10 +45,16 @@ public class ExportToCsv {
                 csvWriter.append("\n");
             }
 
-            System.out.println("CSV file exported successfully!");
+            csvWriter.flush();
+
+            // Convert CSV data to byte array
+            return outputStream.toByteArray();
 
         } catch (SQLException | IOException e) {
-            logger.error("Error exporting data to CSV: " + e.getMessage());
+            e.printStackTrace();
+            logger.error(e.toString());
+            // Handle error
+            return null;
         }
     }
 

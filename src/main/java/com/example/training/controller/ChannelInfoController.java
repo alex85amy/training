@@ -16,20 +16,20 @@ public class ChannelInfoController {
     private Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
-    public String index() {
+    public List<ChannelInfo> index() {
         logger.info("findAll channel_info");
         return channelInfoService.findAll();
     }
 
-    @GetMapping("/per_page/{per_page}/page/{page}")
-    public String findpagedata(@PathVariable("per_page") int per_page,
+    @GetMapping("/amount/{amount}/page/{page}")
+    public List<ChannelInfo> findPageData(@PathVariable("amount") int amount,
                                @PathVariable("page") int page) {
-        logger.info("findChannelInfo page: " + page + " in per_page: " + per_page);
-        return channelInfoService.findpagedata(per_page, page);
+        logger.info("findChannelInfo page: " + page + " in per_page: " + amount);
+        return channelInfoService.findPageData(amount, page);
     }
 
     @GetMapping("/{id}")
-    public String findChannelInfoById(@PathVariable("id") int id) {
+    public ChannelInfo findChannelInfoById(@PathVariable("id") int id) {
         logger.info("findChannelInfoById: " + id);
         return channelInfoService.findById(id);
     }

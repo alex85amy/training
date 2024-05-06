@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class PType2InfoService {
     private JDBC jdbc = new JDBC();
@@ -16,7 +17,7 @@ public class PType2InfoService {
 
 
     public void add(PType2Info pType2Info) {
-        String data = pType2InfoDao.findByCategoryOrName(pType2Info.getCategory(), pType2Info.getName());
+        PType2Info data = pType2InfoDao.findByCategoryOrName(pType2Info.getCategory(), pType2Info.getName());
         if (data == null) {
             pType2InfoDao.add(pType2Info);
         }
@@ -24,7 +25,7 @@ public class PType2InfoService {
     }
 
     public void delete(int id) {
-        String data = pType2InfoDao.findById(id);
+        PType2Info data = pType2InfoDao.findById(id);
         if (data != null) {
             pType2InfoDao.delete(id);
         }
@@ -32,22 +33,22 @@ public class PType2InfoService {
     }
 
     public void update(int id, PType2Info pType2Info) {
-        String data = pType2InfoDao.findById(id);
+        PType2Info data = pType2InfoDao.findById(id);
         if (data != null) {
             pType2InfoDao.update(id, pType2Info);
         }
         logger.error("修改失敗: 無此資料");
     }
 
-    public String findById(int id) {
+    public PType2Info findById(int id) {
         return pType2InfoDao.findById(id);
     }
 
-    public String findpagedata(int per_page, int page) {
-        return pType2InfoDao.findpagedata(per_page, page);
+    public List<PType2Info> findPageData(int amount, int page) {
+        return pType2InfoDao.findPageData(amount, page);
     }
 
-    public String findAll() {
+    public List<PType2Info> findAll() {
         return pType2InfoDao.findAll();
     }
 

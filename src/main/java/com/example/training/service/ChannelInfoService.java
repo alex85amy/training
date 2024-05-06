@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class ChannelInfoService {
 
@@ -16,7 +17,7 @@ public class ChannelInfoService {
     private ChannelInfoDao channelInfoDao = new ChannelInfoDao(conn);
 
     public void add(ChannelInfo channelInfo) {
-        String data = channelInfoDao.findBySourceAreaId(channelInfo.getSourceAreaId());
+        ChannelInfo data = channelInfoDao.findBySourceAreaId(channelInfo.getSourceAreaId());
         if (data == null) {
             channelInfoDao.add(channelInfo);
         }
@@ -24,7 +25,7 @@ public class ChannelInfoService {
     }
 
     public void delete(int id) {
-        String data = channelInfoDao.findById(id);
+        ChannelInfo data = channelInfoDao.findById(id);
         if (data != null) {
             channelInfoDao.delete(id);
         }
@@ -32,23 +33,23 @@ public class ChannelInfoService {
     }
 
     public void update(int id, ChannelInfo channelInfo) {
-        String data = channelInfoDao.findById(id);
+        ChannelInfo data = channelInfoDao.findById(id);
         if (data != null) {
             channelInfoDao.update(id, channelInfo);
         }
         logger.error("修改失敗: 無此資料");
     }
 
-    public String findById(int id) {
+    public ChannelInfo findById(int id) {
         return channelInfoDao.findById(id);
     }
 
-    public String findAll() {
+    public List<ChannelInfo> findAll() {
         return channelInfoDao.findAll();
     }
 
-    public String findpagedata(int per_page, int page) {
-        return channelInfoDao.findpagedata(per_page, page);
+    public List<ChannelInfo> findPageData(int amount, int page) {
+        return channelInfoDao.findPageData(amount, page);
     }
 
 }

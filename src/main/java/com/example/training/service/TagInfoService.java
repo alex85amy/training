@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class TagInfoService {
 
@@ -16,7 +17,7 @@ public class TagInfoService {
     private TagInfoDao tagInfoDao = new TagInfoDao(conn);
 
     public void add(TagInfo tagInfo) {
-        String data = tagInfoDao.findByTagId(tagInfo.getTagId());
+        TagInfo data = tagInfoDao.findByTagId(tagInfo.getTagId());
         if (data == null) {
             tagInfoDao.add(tagInfo);
         }
@@ -24,7 +25,7 @@ public class TagInfoService {
     }
 
     public void delete(int tagId) {
-        String data = tagInfoDao.findByTagId(tagId);
+        TagInfo data = tagInfoDao.findByTagId(tagId);
         if (data != null) {
             tagInfoDao.delete(tagId);
         }
@@ -32,22 +33,22 @@ public class TagInfoService {
     }
 
     public void update(int tagId, TagInfo tagInfo) {
-        String data = tagInfoDao.findByTagId(tagId);
+        TagInfo data = tagInfoDao.findByTagId(tagId);
         if (data != null) {
             tagInfoDao.update(tagId, tagInfo);
         }
         logger.error("修改失敗: 無此資料");
     }
 
-    public String findByTagId(int tagId) {
+    public TagInfo findByTagId(int tagId) {
         return tagInfoDao.findByTagId(tagId);
     }
 
-    public String findpagedata(int per_page, int page) {
-        return tagInfoDao.findpagedata(per_page, page);
+    public List<TagInfo> findPageData(int amount, int page) {
+        return tagInfoDao.findPageData(amount, page);
     }
 
-    public String findAll() {
+    public List<TagInfo> findAll() {
         return tagInfoDao.findAll();
     }
 }
