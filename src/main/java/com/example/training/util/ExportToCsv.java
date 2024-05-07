@@ -22,6 +22,10 @@ public class ExportToCsv {
             ResultSet resultSet = statement.executeQuery(insertSQL);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             PrintWriter csvWriter = new PrintWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8))){
+
+            // 添加 UTF-8 BOM 到输出流中
+            csvWriter.write('\ufeff');
+
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columnCount = metaData.getColumnCount();
 

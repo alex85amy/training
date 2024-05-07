@@ -1,7 +1,6 @@
 package com.example.training.dao;
 
 import com.example.training.bean.TagInfo;
-import com.example.training.util.ResultSetToJson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -94,7 +93,7 @@ public class TagInfoDao {
                 "SELECT * FROM tag_info")) {
             ResultSet rs = preparedStatement.executeQuery();
             List<TagInfo> list = new ArrayList<>();
-            while (rs.next()){
+            while (rs.next()) {
                 int tagId = rs.getInt("tag_id");
                 String tagName = rs.getString("tag_name");
                 int type = rs.getInt("type");
@@ -146,7 +145,7 @@ public class TagInfoDao {
             preparedStatement.setInt(2, offset);
             ResultSet rs = preparedStatement.executeQuery();
             List<TagInfo> list = new ArrayList<>();
-            while (rs.next()){
+            while (rs.next()) {
                 int tagId = rs.getInt("tag_id");
                 String tagName = rs.getString("tag_name");
                 int type = rs.getInt("type");

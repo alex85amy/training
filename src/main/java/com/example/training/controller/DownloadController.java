@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.charset.StandardCharsets;
+
 @RestController
 @RequestMapping("/download")
 public class DownloadController {
@@ -22,10 +24,12 @@ public class DownloadController {
         byte[] csvBytes = exportToCsv.exportCsv();
 
         if (csvBytes != null) {
-            //設置Header
+            // 設置Header
             HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.TEXT_PLAIN);
-            headers.set("Content-Disposition", "attachment; filename=output.csv; charset=UTF-8");
+            // 設置文件類型與編碼
+            headers.setContentType(new MediaType("text", "csv", StandardCharsets.UTF_8));
+            // 設置為下載
+            headers.setContentDispositionFormData("attachment", "output.csv");
             // 返回 CSV 文件内容作为 ResponseEntity
             return new ResponseEntity<>(csvBytes, headers, HttpStatus.OK);
         } else {
