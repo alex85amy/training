@@ -1,7 +1,6 @@
 package com.example.training.controller;
 
 import com.example.training.bean.TagInfo;
-import com.example.training.dao.TagInfoDao;
 import com.example.training.service.TagInfoService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,8 +12,8 @@ import java.util.List;
 @RequestMapping("/tag_info")
 public class TagInfoController {
 
-    private TagInfoService tagInfoService = new TagInfoService();
-    private Logger logger = LogManager.getLogger();
+    private final TagInfoService tagInfoService = new TagInfoService();
+    private final Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
     public List<TagInfo> index() {
@@ -22,9 +21,9 @@ public class TagInfoController {
         return tagInfoService.findAll();
     }
 
-    @GetMapping("/amount/{amount}/page/{page}")
-    public List<TagInfo> findPageData(@PathVariable("amount") int amount,
-                               @PathVariable("page") int page) {
+    @GetMapping("/page")
+    public List<TagInfo> findPageData(@RequestParam("amount") int amount,
+                                      @RequestParam("page") int page) {
         logger.info("findTagInfo page: " + page + " in per_page: " + amount);
         return tagInfoService.findPageData(amount, page);
     }

@@ -6,17 +6,19 @@ import org.apache.logging.log4j.Logger;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class JDBC {
 
     private Connection conn;
-    private Logger logger = LogManager.getLogger();
 
+    public Connection getConn() {
+        return conn;
+    }
 
-    public Connection getConnection() {
-        try {
-            InputStream inputStream = ClassLoader.getSystemResourceAsStream("application.properties");
+    public JDBC() {
+        try (InputStream inputStream = ClassLoader.getSystemResourceAsStream("application.properties")) {
             Properties properties = new Properties();
             properties.load(inputStream);
             String url = properties.getProperty("spring.datasource.url");
@@ -24,12 +26,20 @@ public class JDBC {
             String password = properties.getProperty("spring.datasource.password");
 
             conn = DriverManager.getConnection(url, username, password);
-
-
         } catch (Exception e) {
             e.printStackTrace();
+            Logger logger = LogManager.getLogger();
             logger.error(e.toString());
         }
-        return conn;
+    }
+
+    public void close() {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException throwable) {
+                throwable.printStackTrace();
+            }
+        }
     }
 }

@@ -12,8 +12,8 @@ import java.util.List;
 @RequestMapping("/p_type_2_info")
 public class PType2InfoController {
 
-    private PType2InfoService pType2InfoService = new PType2InfoService();
-    private Logger logger = LogManager.getLogger();
+    private final PType2InfoService pType2InfoService = new PType2InfoService();
+    private final Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
     public List<PType2Info> index() {
@@ -21,9 +21,9 @@ public class PType2InfoController {
         return pType2InfoService.findAll();
     }
 
-    @GetMapping("/amount/{amount}/page/{page}")
-    public List<PType2Info> findPageData(@PathVariable("amount") int amount,
-                               @PathVariable("page") int page) {
+    @GetMapping("/page")
+    public List<PType2Info> findPageData(@RequestParam("amount") int amount,
+                                         @RequestParam("page") int page) {
         logger.info("findPType2Info page: " + page + " in per_page: " + amount);
         return pType2InfoService.findPageData(amount, page);
 

@@ -10,10 +10,10 @@ import java.sql.Connection;
 import java.util.List;
 
 public class PType2InfoService {
-    private JDBC jdbc = new JDBC();
-    private Connection conn = jdbc.getConnection();
-    private Logger logger = LogManager.getLogger();
-    private PType2InfoDao pType2InfoDao = new PType2InfoDao(conn);
+    private final JDBC jdbc = new JDBC();
+    private final Connection conn = jdbc.getConn();
+    private final Logger logger = LogManager.getLogger();
+    private final PType2InfoDao pType2InfoDao = new PType2InfoDao(conn);
 
 
     public void add(PType2Info pType2Info) {

@@ -14,8 +14,8 @@ import java.util.List;
 
 public class TagInfoDao {
 
-    private Connection conn;
-    private Logger logger = LogManager.getLogger();
+    private final Connection conn;
+    private final Logger logger = LogManager.getLogger();
 
     public TagInfoDao(Connection conn) {
         this.conn = conn;
@@ -30,9 +30,9 @@ public class TagInfoDao {
             preparedStatement.setInt(3, tagInfo.getType());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 
@@ -44,9 +44,9 @@ public class TagInfoDao {
             preparedStatement.executeUpdate();
             return true;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return false;
         }
     }
@@ -61,9 +61,9 @@ public class TagInfoDao {
             preparedStatement.executeUpdate();
             return true;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return false;
         }
     }
@@ -80,9 +80,9 @@ public class TagInfoDao {
 
             return new TagInfo(tagId, tagName, type);
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -101,9 +101,9 @@ public class TagInfoDao {
                 list.add(tagInfo);
             }
             return list;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -130,9 +130,9 @@ public class TagInfoDao {
             }
             preparedStatement.executeBatch();// 執行最後批次操作
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 
@@ -153,9 +153,9 @@ public class TagInfoDao {
                 list.add(tagInfo);
             }
             return list;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }

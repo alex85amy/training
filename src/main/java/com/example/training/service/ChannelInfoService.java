@@ -11,10 +11,10 @@ import java.util.List;
 
 public class ChannelInfoService {
 
-    private JDBC jdbc = new JDBC();
-    private Connection conn = jdbc.getConnection();
-    private Logger logger = LogManager.getLogger();
-    private ChannelInfoDao channelInfoDao = new ChannelInfoDao(conn);
+    private final JDBC jdbc = new JDBC();
+    private final Connection conn = jdbc.getConn();
+    private final Logger logger = LogManager.getLogger();
+    private final ChannelInfoDao channelInfoDao = new ChannelInfoDao(conn);
 
     public void add(ChannelInfo channelInfo) {
         ChannelInfo data = channelInfoDao.findBySourceAreaId(channelInfo.getSourceAreaId());

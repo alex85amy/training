@@ -12,8 +12,8 @@ import java.util.List;
 @RequestMapping("/channel_info")
 public class ChannelInfoController {
 
-    private ChannelInfoService channelInfoService = new ChannelInfoService();
-    private Logger logger = LogManager.getLogger();
+    private final ChannelInfoService channelInfoService = new ChannelInfoService();
+    private final Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
     public List<ChannelInfo> index() {
@@ -21,9 +21,9 @@ public class ChannelInfoController {
         return channelInfoService.findAll();
     }
 
-    @GetMapping("/amount/{amount}/page/{page}")
-    public List<ChannelInfo> findPageData(@PathVariable("amount") int amount,
-                               @PathVariable("page") int page) {
+    @GetMapping("/page")
+    public List<ChannelInfo> findPageData(@RequestParam("amount") int amount,
+                                          @RequestParam("page") int page) {
         logger.info("findChannelInfo page: " + page + " in per_page: " + amount);
         return channelInfoService.findPageData(amount, page);
     }

@@ -11,19 +11,18 @@ import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
 public class ExportToCsv {
-    private JDBC jdbc = new JDBC();
-    private Connection conn = jdbc.getConnection();
-    private Logger logger = LogManager.getLogger();
+    private final JDBC jdbc = new JDBC();
+    private final Connection conn = jdbc.getConn();
+    private final Logger logger = LogManager.getLogger();
 
     public byte[] exportCsv() {
 
-        try
-            (Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery(insertSQL);
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            PrintWriter csvWriter = new PrintWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8))){
+        try (Statement statement = conn.createStatement();
+             ResultSet resultSet = statement.executeQuery(insertSQL);
+             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+             PrintWriter csvWriter = new PrintWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8))) {
 
-            // 添加 UTF-8 BOM 到输出流中
+            // 添加 UTF-8 BOM 到文件頭
             csvWriter.write('\ufeff');
 
             ResultSetMetaData metaData = resultSet.getMetaData();

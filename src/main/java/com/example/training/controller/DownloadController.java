@@ -16,13 +16,13 @@ import java.nio.charset.StandardCharsets;
 @RestController
 @RequestMapping("/download")
 public class DownloadController {
-    private ExportToCsv exportToCsv = new ExportToCsv();
-    private Logger logger = LogManager.getLogger();
+    private final ExportToCsv exportToCsv = new ExportToCsv();
+    private final Logger logger = LogManager.getLogger();
 
     @GetMapping("/")
     public ResponseEntity<byte[]> exportCsv() {
         byte[] csvBytes = exportToCsv.exportCsv();
-
+        logger.info("download csv");
         if (csvBytes != null) {
             // 設置Header
             HttpHeaders headers = new HttpHeaders();

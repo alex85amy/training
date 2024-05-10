@@ -12,8 +12,8 @@ import java.util.List;
 @RequestMapping("/channel_tag_mapping")
 public class ChannelTagMappingController {
 
-    private ChannelTagMappingService channelTagMappingService = new ChannelTagMappingService();
-    private Logger logger = LogManager.getLogger();
+    private final ChannelTagMappingService channelTagMappingService = new ChannelTagMappingService();
+    private final Logger logger = LogManager.getLogger();
 
     @GetMapping("/all")
     public List<ChannelTagMapping> index() {
@@ -21,9 +21,9 @@ public class ChannelTagMappingController {
         return channelTagMappingService.findAll();
     }
 
-    @GetMapping("/amount/{amount}/page/{page}")
-    public List<ChannelTagMapping> findPageData(@PathVariable("amount") int amount,
-                               @PathVariable("page") int page) {
+    @GetMapping("/page")
+    public List<ChannelTagMapping> findPageData(@RequestParam("amount") int amount,
+                                                @RequestParam("page") int page) {
         logger.info("findChannelTagMapping page: " + page + " in per_page: " + amount);
         return channelTagMappingService.findPageData(amount, page);
     }

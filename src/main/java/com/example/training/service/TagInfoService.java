@@ -11,10 +11,10 @@ import java.util.List;
 
 public class TagInfoService {
 
-    private JDBC jdbc = new JDBC();
-    private Connection conn = jdbc.getConnection();
-    private Logger logger = LogManager.getLogger();
-    private TagInfoDao tagInfoDao = new TagInfoDao(conn);
+    private final JDBC jdbc = new JDBC();
+    private final Connection conn = jdbc.getConn();
+    private final Logger logger = LogManager.getLogger();
+    private final TagInfoDao tagInfoDao = new TagInfoDao(conn);
 
     public void add(TagInfo tagInfo) {
         TagInfo data = tagInfoDao.findByTagId(tagInfo.getTagId());

@@ -11,10 +11,10 @@ import java.util.List;
 
 public class ChannelTagMappingService {
 
-    private JDBC jdbc = new JDBC();
-    private Connection conn = jdbc.getConnection();
-    private Logger logger = LogManager.getLogger();
-    private ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDao(conn);
+    private final JDBC jdbc = new JDBC();
+    private final Connection conn = jdbc.getConn();
+    private final Logger logger = LogManager.getLogger();
+    private final ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDao(conn);
 
     public void add(ChannelTagMapping channelTagMapping) {
         ChannelTagMapping data = channelTagMappingDao.findBySIdAndTagId(channelTagMapping.getSourceAreaId(), channelTagMapping.getTagId());
