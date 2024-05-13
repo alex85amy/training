@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,17 +42,16 @@ public class ExportToCsv {
         // 添加 UTF-8 BOM 到文件頭確保編碼
         csvWriter.write('\ufeff');
 
-        ResultSetMetaData metaData = resultSet.getMetaData();
-        int columnCount = metaData.getColumnCount();
-
         // Write CSV header
-        for (int i = 1; i <= columnCount - 1; i++) {
-            csvWriter.append(metaData.getColumnName(i));
-            if (i < columnCount) {
-                csvWriter.append(",");
-            }
-        }
-        csvWriter.append("\n");
+        csvWriter.append(" ").append(",")
+                .append("新聞").append(",")
+                .append("部落格").append(",")
+                .append("討論區").append(",")
+                .append("社群網站").append(",")
+                .append("評論").append(",")
+                .append("問答網站").append(",")
+                .append("影音").append("\n");
+
 
         // Write CSV data
 
