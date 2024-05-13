@@ -25,8 +25,18 @@ public class TagCount {
     public TagCount() {
     }
 
-    public TagCount(int news, int blog, int forum, int social, int comment, int qa, int video, int type) {
+    public TagCount(String tagName, int news, int blog, int forum, int social, int comment, int qa, int video, int type) {
+        this.tagName = tagName;
+        this.news = news;
+        this.blog = blog;
+        this.forum = forum;
+        this.social = social;
+        this.comment = comment;
+        this.qa = qa;
+        this.video = video;
+        this.type = type;
     }
+
 
     public String getTagName() {
         return tagName;

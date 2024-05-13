@@ -19,24 +19,24 @@ public class ChannelTagMappingService {
         ChannelTagMapping data = channelTagMappingDao.findBySIdAndTagId(channelTagMapping.getSourceAreaId(), channelTagMapping.getTagId());
         if (data == null) {
             channelTagMappingDao.add(channelTagMapping);
-        }
-        logger.error("新增失敗: 資料重複");
+        } else
+            logger.error("新增失敗: 資料重複");
     }
 
     public void delete(int id) {
         ChannelTagMapping data = channelTagMappingDao.findById(id);
         if (data != null) {
             channelTagMappingDao.delete(id);
-        }
-        logger.error("刪除失敗: 無此資料");
+        } else
+            logger.error("刪除失敗: 無此資料");
     }
 
     public void update(int id, ChannelTagMapping channelTagMapping) {
         ChannelTagMapping data = channelTagMappingDao.findById(id);
         if (data != null) {
             channelTagMappingDao.update(id, channelTagMapping);
-        }
-        logger.error("修改失敗: 無此資料");
+        } else
+            logger.error("修改失敗: 無此資料");
     }
 
     public ChannelTagMapping findById(int id) {

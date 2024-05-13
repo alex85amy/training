@@ -20,24 +20,24 @@ public class PType2InfoService {
         PType2Info data = pType2InfoDao.findByCategoryOrName(pType2Info.getCategory(), pType2Info.getName());
         if (data == null) {
             pType2InfoDao.add(pType2Info);
-        }
-        logger.error("新增失敗: 資料重複");
+        } else
+            logger.error("新增失敗: 資料重複");
     }
 
     public void delete(int id) {
         PType2Info data = pType2InfoDao.findById(id);
         if (data != null) {
             pType2InfoDao.delete(id);
-        }
-        logger.error("刪除失敗: 無此資料");
+        } else
+            logger.error("刪除失敗: 無此資料");
     }
 
     public void update(int id, PType2Info pType2Info) {
         PType2Info data = pType2InfoDao.findById(id);
         if (data != null) {
             pType2InfoDao.update(id, pType2Info);
-        }
-        logger.error("修改失敗: 無此資料");
+        } else
+            logger.error("修改失敗: 無此資料");
     }
 
     public PType2Info findById(int id) {

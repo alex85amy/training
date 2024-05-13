@@ -19,24 +19,24 @@ public class TagInfoService {
         TagInfo data = tagInfoDao.findByTagId(tagInfo.getTagId());
         if (data == null) {
             tagInfoDao.add(tagInfo);
-        }
-        logger.error("新增失敗: 資料重複");
+        } else
+            logger.error("新增失敗: 資料重複");
     }
 
     public void delete(int tagId) {
         TagInfo data = tagInfoDao.findByTagId(tagId);
         if (data != null) {
             tagInfoDao.delete(tagId);
-        }
-        logger.error("刪除失敗: 無此資料");
+        } else
+            logger.error("刪除失敗: 無此資料");
     }
 
     public void update(int tagId, TagInfo tagInfo) {
         TagInfo data = tagInfoDao.findByTagId(tagId);
         if (data != null) {
             tagInfoDao.update(tagId, tagInfo);
-        }
-        logger.error("修改失敗: 無此資料");
+        } else
+            logger.error("修改失敗: 無此資料");
     }
 
     public TagInfo findByTagId(int tagId) {

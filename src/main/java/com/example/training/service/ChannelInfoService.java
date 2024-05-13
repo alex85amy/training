@@ -19,24 +19,24 @@ public class ChannelInfoService {
         ChannelInfo data = channelInfoDao.findBySourceAreaId(channelInfo.getSourceAreaId());
         if (data == null) {
             channelInfoDao.add(channelInfo);
-        }
-        logger.error("新增失敗: 資料重複");
+        } else
+            logger.error("新增失敗: 資料重複");
     }
 
     public void delete(int id) {
         ChannelInfo data = channelInfoDao.findById(id);
         if (data != null) {
             channelInfoDao.delete(id);
-        }
-        logger.error("刪除失敗: 無此資料");
+        } else
+            logger.error("刪除失敗: 無此資料");
     }
 
     public void update(int id, ChannelInfo channelInfo) {
         ChannelInfo data = channelInfoDao.findById(id);
         if (data != null) {
             channelInfoDao.update(id, channelInfo);
-        }
-        logger.error("修改失敗: 無此資料");
+        } else
+            logger.error("修改失敗: 無此資料");
     }
 
     public ChannelInfo findById(int id) {
