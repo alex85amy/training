@@ -11,8 +11,7 @@ import java.util.List;
 
 public class ChannelInfoService {
 
-    private final JDBC jdbc = new JDBC();
-    private final Connection conn = jdbc.getConn();
+    private final Connection conn = JDBC.getConn();
     private final Logger logger = LogManager.getLogger();
     private final ChannelInfoDao channelInfoDao = new ChannelInfoDao(conn);
 

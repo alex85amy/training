@@ -9,20 +9,38 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExportToCsv {
-    private final JDBC jdbc = new JDBC();
-    private final Connection conn = jdbc.getConn();
+
+    private final Connection conn = JDBC.getConn();
     private final Logger logger = LogManager.getLogger();
 
     public byte[] exportCsv() {
 
-        try (Statement statement = conn.createStatement();
-             ResultSet resultSet = statement.executeQuery(insertSQL);
+        try (PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
+             ResultSet resultSet = preparedStatement.executeQuery();
              ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
              PrintWriter csvWriter = new PrintWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8))) {
 
-            // 添加 UTF-8 BOM 到文件頭
+//            List<TagCount> list = new ArrayList<>();
+//            while (resultSet.next()) {
+//                String tagName = resultSet.getString("tag_name");
+//                int news = resultSet.getInt("新聞");
+//                int blog = resultSet.getInt("部落格");
+//                int forum = resultSet.getInt("討論區");
+//                int social = resultSet.getInt("社群網站");
+//                int comment = resultSet.getInt("評論");
+//                int qa = resultSet.getInt("問答網站");
+//                int video = resultSet.getInt("影音");
+//                int type = resultSet.getInt("type");
+//                TagCount tagCount = new TagCount(news, blog, forum, social, comment, qa, video, type);
+//                list.add(tagCount);
+//            }
+
+
+            // 添加 UTF-8 BOM 到文件頭確保編碼
             csvWriter.write('\ufeff');
 
             ResultSetMetaData metaData = resultSet.getMetaData();
@@ -63,7 +81,7 @@ public class ExportToCsv {
 
 
     private String insertSQL = "SELECT " +
-            "    t.tag_name AS tag_name," +
+            "    t.tag_name AS ''," +
             "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'news'  THEN c.source_area_id ELSE NULL END) AS '新聞'," +
             "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'blog'  THEN c.source_area_id ELSE NULL END) AS '部落格'," +
             "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'forum'  THEN c.source_area_id ELSE NULL END) AS '討論區'," +

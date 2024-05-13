@@ -10,8 +10,8 @@ import java.sql.Connection;
 import java.util.List;
 
 public class PType2InfoService {
-    private final JDBC jdbc = new JDBC();
-    private final Connection conn = jdbc.getConn();
+
+    private final Connection conn = JDBC.getConn();
     private final Logger logger = LogManager.getLogger();
     private final PType2InfoDao pType2InfoDao = new PType2InfoDao(conn);
 
