@@ -23,25 +23,22 @@ public class DownloadController {
 
     @GetMapping("/")
     public ResponseEntity<byte[]> exportCsv() {
-        byte[] csvBytes = new byte[0];
-        try {
-            csvBytes = exportToCsv.exportCsv();
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-            logger.error(e.toString());
-        }
-        logger.info("download csv");
-        if (csvBytes != null) {
+        byte[] csvBytes;
+        csvBytes = exportToCsv.exportCsv();
+
+        if (csvBytes.length != 0) {
             // 設置Header
             HttpHeaders headers = new HttpHeaders();
             // 設置文件類型與編碼
             headers.setContentType(new MediaType("text", "csv", StandardCharsets.UTF_8));
             // 設置為下載
             headers.setContentDispositionFormData("attachment", "output.csv");
-            // 返回 CSV 文件内容作为 ResponseEntity
+            // 返回 CSV 文件内容作为 ResponseEntity, Internal Server 200 OK
+            logger.info("download csv");
             return new ResponseEntity<>(csvBytes, headers, HttpStatus.OK);
         } else {
             // Internal Server Error 500
+            logger.error("body is null");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }

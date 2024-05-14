@@ -47,11 +47,11 @@ public class ChannelTagMappingService {
         return channelTagMappingDao.findPageData(amount, page);
     }
 
-    public ChannelTagMapping findBySourceAreaId(String sourceAreaId) {
+    public List<ChannelTagMapping> findBySourceAreaId(String sourceAreaId) {
         return channelTagMappingDao.findBySourceAreaId(sourceAreaId);
     }
 
-    public ChannelTagMapping findByTagId(int tagId) {
+    public List<ChannelTagMapping> findByTagId(int tagId) {
         return channelTagMappingDao.findByTagId(tagId);
     }
 

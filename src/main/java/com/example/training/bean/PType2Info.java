@@ -21,11 +21,6 @@ public class PType2Info {
         this.name = name;
     }
 
-    public PType2Info(String category, String name) {
-        this.category = category;
-        this.name = name;
-    }
-
     public int getAutoId() {
         return autoId;
     }

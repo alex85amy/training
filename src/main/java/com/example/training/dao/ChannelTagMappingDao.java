@@ -86,16 +86,19 @@ public class ChannelTagMappingDao {
     }
 
 
-    public ChannelTagMapping findBySourceAreaId(String sourceAreaId) {
+    public List<ChannelTagMapping> findBySourceAreaId(String sourceAreaId) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_tag_mapping WHERE s_area_id = ?")) {
             preparedStatement.setString(1, sourceAreaId);
             ResultSet rs = preparedStatement.executeQuery();
-            rs.next();
-            int autoId = rs.getInt("auto_id");
-            int tagId = rs.getInt("tag_id");
-
-            return new ChannelTagMapping(autoId, sourceAreaId, tagId);
+            List<ChannelTagMapping> list = new ArrayList<>();
+            while (rs.next()) {
+                int autoId = rs.getInt("auto_id");
+                int tagId = rs.getInt("tag_id");
+                ChannelTagMapping channelTagMapping = new ChannelTagMapping(autoId, sourceAreaId, tagId);
+                list.add(channelTagMapping);
+            }
+            return list;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,16 +108,19 @@ public class ChannelTagMappingDao {
     }
 
 
-    public ChannelTagMapping findByTagId(int tagId) {
+    public List<ChannelTagMapping> findByTagId(int tagId) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_tag_mapping WHERE tag_id = ?")) {
             preparedStatement.setInt(1, tagId);
             ResultSet rs = preparedStatement.executeQuery();
-            rs.next();
-            int autoId = rs.getInt("auto_id");
-            String sourceAreaId = rs.getString("s_area_id");
-
-            return new ChannelTagMapping(autoId, sourceAreaId, tagId);
+            List<ChannelTagMapping> list = new ArrayList<>();
+            while (rs.next()) {
+                int autoId = rs.getInt("auto_id");
+                String sourceAreaId = rs.getString("s_area_id");
+                ChannelTagMapping channelTagMapping = new ChannelTagMapping(autoId, sourceAreaId, tagId);
+                list.add(channelTagMapping);
+            }
+            return list;
 
         } catch (SQLException e) {
             e.printStackTrace();

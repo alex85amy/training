@@ -22,11 +22,6 @@ public class ChannelTagMapping {
         this.tagId = tagId;
     }
 
-    public ChannelTagMapping(String sourceAreaId, int tagId) {
-        this.sourceAreaId = sourceAreaId;
-        this.tagId = tagId;
-    }
-
     public int getAutoId() {
         return autoId;
     }

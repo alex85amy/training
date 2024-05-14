@@ -30,12 +30,6 @@ public class ChannelInfo {
         this.pType2 = pType2;
     }
 
-    public ChannelInfo(int autoId) {
-        this.autoId = autoId;
-    }
-
-    public ChannelInfo(String sourceId, String sourceAreaId, int isUsed, String pType2) {
-    }
 
     public int getAutoId() {
         return autoId;
