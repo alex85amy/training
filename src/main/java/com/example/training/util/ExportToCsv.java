@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +23,7 @@ public class ExportToCsv {
         try (PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
              ResultSet resultSet = preparedStatement.executeQuery();
              ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-             PrintWriter csvWriter = new PrintWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8))) {
+             OutputStreamWriter csvWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)) {
 
             List<TagCount> tagCounts = new ArrayList<>();
             while (resultSet.next()) {
@@ -45,19 +44,19 @@ public class ExportToCsv {
             // 添加 UTF-8 BOM 到文件頭確保編碼
             csvWriter.write('\ufeff');
 
-            // Write CSV header
-            csvWriter.append(" ").append(",")
-                    .append("新聞").append(",")
-                    .append("部落格").append(",")
-                    .append("討論區").append(",")
-                    .append("社群網站").append(",")
-                    .append("評論").append(",")
-                    .append("問答網站").append(",")
-                    .append("影音").append("\n");
+            // CSV header
+            csvWriter.append(" ,")
+                    .append("新聞,")
+                    .append("部落格,")
+                    .append("討論區,")
+                    .append("社群網站,")
+                    .append("評論,")
+                    .append("問答網站,")
+                    .append("影音")
+                    .append("\n");
 
 
-            // Write CSV data
-
+            // CSV data
             // 使用Stream過濾出type等於1的TagCount物件
             TagCount totalTagCount1 = tagCounts.stream()
                     .filter(tagCount -> tagCount.getType() == 1)
@@ -75,6 +74,7 @@ public class ExportToCsv {
                         accumulator.setTagName("屬性標籤");
                         return accumulator;
                     });
+
             // 將統計屬性標籤寫入
             csvWriter.append(totalTagCount1.getTagName()).append(",")
                     .append(String.valueOf(totalTagCount1.getNews())).append(",")
@@ -84,17 +84,25 @@ public class ExportToCsv {
                     .append(String.valueOf(totalTagCount1.getComment())).append(",")
                     .append(String.valueOf(totalTagCount1.getQa())).append(",")
                     .append(String.valueOf(totalTagCount1.getVideo())).append("\n");
+
             // 過濾type等於1的TagCount物件並寫入
             tagCounts.stream()
                     .filter(tagCount -> tagCount.getType() == 1)
-                    .forEach(tagCount -> csvWriter.append(tagCount.getTagName()).append(",")
-                            .append(String.valueOf(tagCount.getNews())).append(",")
-                            .append(String.valueOf(tagCount.getBlog())).append(",")
-                            .append(String.valueOf(tagCount.getForum())).append(",")
-                            .append(String.valueOf(tagCount.getSocial())).append(",")
-                            .append(String.valueOf(tagCount.getComment())).append(",")
-                            .append(String.valueOf(tagCount.getQa())).append(",")
-                            .append(String.valueOf(tagCount.getVideo())).append("\n"));
+                    .forEach(tagCount -> {
+                        try {
+                            csvWriter.append(tagCount.getTagName()).append(",")
+                                    .append(String.valueOf(tagCount.getNews())).append(",")
+                                    .append(String.valueOf(tagCount.getBlog())).append(",")
+                                    .append(String.valueOf(tagCount.getForum())).append(",")
+                                    .append(String.valueOf(tagCount.getSocial())).append(",")
+                                    .append(String.valueOf(tagCount.getComment())).append(",")
+                                    .append(String.valueOf(tagCount.getQa())).append(",")
+                                    .append(String.valueOf(tagCount.getVideo())).append("\n");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            logger.error(e.toString());
+                        }
+                    });
 
             // 使用Stream過濾出type等於2的TagCount物件
             TagCount totalTagCount2 = tagCounts.stream()
@@ -113,6 +121,7 @@ public class ExportToCsv {
                         accumulator.setTagName("內容標籤");
                         return accumulator;
                     });
+
             // 將統計內容標籤寫入
             csvWriter.append(totalTagCount2.getTagName()).append(",")
                     .append(String.valueOf(totalTagCount2.getNews())).append(",")
@@ -126,15 +135,23 @@ public class ExportToCsv {
             // 過濾type等於2的TagCount物件並寫入
             tagCounts.stream()
                     .filter(tagCount -> tagCount.getType() == 2)
-                    .forEach(tagCount -> csvWriter.append(tagCount.getTagName()).append(",")
-                            .append(String.valueOf(tagCount.getNews())).append(",")
-                            .append(String.valueOf(tagCount.getBlog())).append(",")
-                            .append(String.valueOf(tagCount.getForum())).append(",")
-                            .append(String.valueOf(tagCount.getSocial())).append(",")
-                            .append(String.valueOf(tagCount.getComment())).append(",")
-                            .append(String.valueOf(tagCount.getQa())).append(",")
-                            .append(String.valueOf(tagCount.getVideo())).append("\n"));
+                    .forEach(tagCount -> {
+                        try {
+                            csvWriter.append(tagCount.getTagName()).append(",")
+                                    .append(String.valueOf(tagCount.getNews())).append(",")
+                                    .append(String.valueOf(tagCount.getBlog())).append(",")
+                                    .append(String.valueOf(tagCount.getForum())).append(",")
+                                    .append(String.valueOf(tagCount.getSocial())).append(",")
+                                    .append(String.valueOf(tagCount.getComment())).append(",")
+                                    .append(String.valueOf(tagCount.getQa())).append(",")
+                                    .append(String.valueOf(tagCount.getVideo())).append("\n");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            logger.error(e.toString());
+                        }
+                    });
 
+            // 將緩衝區內容強制輸出
             csvWriter.flush();
             // Convert CSV data to byte array
             return outputStream.toByteArray();
