@@ -1,25 +1,14 @@
 package com.example.training.util;
 
-import com.google.gson.annotations.SerializedName;
-
 public class TagCount {
-    @SerializedName("tag_name")
     private String tagName;
-    @SerializedName("新聞")
     private int news;
-    @SerializedName("部落格")
     private int blog;
-    @SerializedName("討論區")
     private int forum;
-    @SerializedName("社群網站")
     private int social;
-    @SerializedName("評論")
     private int comment;
-    @SerializedName("問答網站")
     private int qa;
-    @SerializedName("影音")
     private int video;
-    @SerializedName("type")
     private int type;
 
     public TagCount() {

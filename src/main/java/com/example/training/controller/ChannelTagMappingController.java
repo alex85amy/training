@@ -34,6 +34,18 @@ public class ChannelTagMappingController {
         return channelTagMappingService.findById(id);
     }
 
+    @GetMapping("/channel")
+    public List<ChannelTagMapping> findBySourceAreaId(@RequestParam("id") String id) {
+        logger.info("findChannelTagMappingBySourceAreaId: " + id);
+        return channelTagMappingService.findBySourceAreaId(id);
+    }
+
+    @GetMapping("/tag")
+    public List<ChannelTagMapping> findByTagId(@RequestParam("id") int id) {
+        logger.info("findChannelTagMappingByTagId: " + id);
+        return channelTagMappingService.findByTagId(id);
+    }
+
     @PostMapping("/add")
     public void addChannelTagMapping(@RequestBody List<ChannelTagMapping> channelTagMappings) {
         for (ChannelTagMapping channelTagMapping : channelTagMappings) {
