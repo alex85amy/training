@@ -5,11 +5,9 @@ import com.example.training.dao.ChannelInfoDao;
 import com.example.training.util.JDBC;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.List;
-
 
 public class ChannelInfoService {
 
@@ -43,10 +41,6 @@ public class ChannelInfoService {
 
     public ChannelInfo findById(int id) {
         return channelInfoDao.findById(id);
-    }
-
-    public List<ChannelInfo> findAll() {
-        return channelInfoDao.findAll();
     }
 
     public List<ChannelInfo> findPageData(int amount, int page) {

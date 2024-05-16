@@ -15,12 +15,6 @@ public class TagInfoController {
     private final TagInfoService tagInfoService = new TagInfoService();
     private final Logger logger = LogManager.getLogger();
 
-    @GetMapping("/all")
-    public List<TagInfo> index() {
-        logger.info("findAll tag_info");
-        return tagInfoService.findAll();
-    }
-
     @GetMapping("/page")
     public List<TagInfo> findPageData(@RequestParam("amount") int amount,
                                       @RequestParam("page") int page) {

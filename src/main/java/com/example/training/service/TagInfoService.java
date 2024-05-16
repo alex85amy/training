@@ -47,7 +47,4 @@ public class TagInfoService {
         return tagInfoDao.findPageData(amount, page);
     }
 
-    public List<TagInfo> findAll() {
-        return tagInfoDao.findAll();
-    }
 }

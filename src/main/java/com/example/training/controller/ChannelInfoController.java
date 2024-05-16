@@ -16,12 +16,6 @@ public class ChannelInfoController {
     private final ChannelInfoService channelInfoService = new ChannelInfoService();
     private final Logger logger = LogManager.getLogger();
 
-    @GetMapping("/all")
-    public List<ChannelInfo> index() {
-        logger.info("findAll channel_info");
-        return channelInfoService.findAll();
-    }
-
     @GetMapping("/page")
     public List<ChannelInfo> findPageData(@RequestParam("amount") int amount,
                                           @RequestParam("page") int page) {

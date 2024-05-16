@@ -88,28 +88,6 @@ public class PType2InfoDao {
     }
 
 
-    public List<PType2Info> findAll() {
-        try (PreparedStatement preparedStatement = conn.prepareStatement(
-                "SELECT * FROM p_type_2_info")) {
-            ResultSet rs = preparedStatement.executeQuery();
-            List<PType2Info> list = new ArrayList<>();
-            while (rs.next()) {
-                int autoId = rs.getInt("auto_id");
-                String category = rs.getString("category");
-                String name = rs.getString("name");
-                PType2Info pType2Info = new PType2Info(autoId, category, name);
-                list.add(pType2Info);
-            }
-            return list;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            logger.error(e.toString());
-            return null;
-        }
-    }
-
-
     public PType2Info findByCategoryOrName(String category, String name) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM p_type_2_info WHERE category = ? OR name= ?")) {
@@ -178,4 +156,17 @@ public class PType2InfoDao {
         }
     }
 
+
+    public int findNumOfData() {
+        try (PreparedStatement preparedStatement = conn.prepareStatement(
+                "SELECT COUNT(auto_id) FROM p_type_2_info")) {
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            return rs.getInt("COUNT(auto_id)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
+        }
+        return 0;
+    }
 }

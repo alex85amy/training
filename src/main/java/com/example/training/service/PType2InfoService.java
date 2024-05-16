@@ -15,7 +15,6 @@ public class PType2InfoService {
     private final Logger logger = LogManager.getLogger();
     private final PType2InfoDao pType2InfoDao = new PType2InfoDao(conn);
 
-
     public void add(PType2Info pType2Info) {
         PType2Info data = pType2InfoDao.findByCategoryOrName(pType2Info.getCategory(), pType2Info.getName());
         if (data == null) {
@@ -48,8 +47,5 @@ public class PType2InfoService {
         return pType2InfoDao.findPageData(amount, page);
     }
 
-    public List<PType2Info> findAll() {
-        return pType2InfoDao.findAll();
-    }
 
 }

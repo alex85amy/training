@@ -88,27 +88,6 @@ public class TagInfoDao {
     }
 
 
-    public List<TagInfo> findAll() {
-        try (PreparedStatement preparedStatement = conn.prepareStatement(
-                "SELECT * FROM tag_info")) {
-            ResultSet rs = preparedStatement.executeQuery();
-            List<TagInfo> list = new ArrayList<>();
-            while (rs.next()) {
-                int tagId = rs.getInt("tag_id");
-                String tagName = rs.getString("tag_name");
-                int type = rs.getInt("type");
-                TagInfo tagInfo = new TagInfo(tagId, tagName, type);
-                list.add(tagInfo);
-            }
-            return list;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            logger.error(e.toString());
-            return null;
-        }
-    }
-
-
     public void addBatch(List<TagInfo> tagInfoList) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "INSERT INTO tag_info(tag_id, tag_name, type) VALUES (?, ?, ?)")
@@ -158,5 +137,19 @@ public class TagInfoDao {
             logger.error(e.toString());
             return null;
         }
+    }
+
+
+    public int findNumOfData() {
+        try (PreparedStatement preparedStatement = conn.prepareStatement(
+                "SELECT COUNT(tag_id) FROM tag_info")) {
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            return rs.getInt("COUNT(tag_id)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
+        }
+        return 0;
     }
 }

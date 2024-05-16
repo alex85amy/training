@@ -55,8 +55,5 @@ public class ChannelTagMappingService {
         return channelTagMappingDao.findByTagId(tagId);
     }
 
-    public List<ChannelTagMapping> findAll() {
-        return channelTagMappingDao.findAll();
-    }
 
 }

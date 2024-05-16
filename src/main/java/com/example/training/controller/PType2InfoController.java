@@ -15,18 +15,11 @@ public class PType2InfoController {
     private final PType2InfoService pType2InfoService = new PType2InfoService();
     private final Logger logger = LogManager.getLogger();
 
-    @GetMapping("/all")
-    public List<PType2Info> index() {
-        logger.info("findAll p_type_2_info");
-        return pType2InfoService.findAll();
-    }
-
     @GetMapping("/page")
     public List<PType2Info> findPageData(@RequestParam("amount") int amount,
                                          @RequestParam("page") int page) {
         logger.info("findPType2Info page: " + page + " in per_page: " + amount);
         return pType2InfoService.findPageData(amount, page);
-
     }
 
     @GetMapping("/{id}")

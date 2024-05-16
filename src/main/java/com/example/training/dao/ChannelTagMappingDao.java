@@ -149,27 +149,6 @@ public class ChannelTagMappingDao {
     }
 
 
-    public List<ChannelTagMapping> findAll() {
-        try (PreparedStatement preparedStatement = conn.prepareStatement(
-                "SELECT * FROM channel_tag_mapping")) {
-            ResultSet rs = preparedStatement.executeQuery();
-            List<ChannelTagMapping> list = new ArrayList<>();
-            while (rs.next()) {
-                int autoId = rs.getInt("auto_id");
-                String sourceAreaId = rs.getString("s_area_id");
-                int tagId = rs.getInt("tag_id");
-                ChannelTagMapping channelTagMapping = new ChannelTagMapping(autoId, sourceAreaId, tagId);
-                list.add(channelTagMapping);
-            }
-            return list;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            logger.error(e.toString());
-            return null;
-        }
-    }
-
-
     public void addBatch(List<ChannelTagMapping> channelTagMappingList) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "INSERT INTO channel_tag_mapping(s_area_id, tag_id) VALUES (?, ?) "
@@ -222,4 +201,16 @@ public class ChannelTagMappingDao {
     }
 
 
+    public int findNumOfData() {
+        try (PreparedStatement preparedStatement = conn.prepareStatement(
+                "SELECT COUNT(auto_id) FROM channel_tag_mapping")) {
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            return rs.getInt("COUNT(auto_id)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
+        }
+        return 0;
+    }
 }

@@ -93,30 +93,6 @@ public class ChannelInfoDao {
     }
 
 
-    public List<ChannelInfo> findAll() {
-        try (PreparedStatement preparedStatement = conn.prepareStatement(
-                "SELECT * FROM channel_info")) {
-            ResultSet rs = preparedStatement.executeQuery();
-            List<ChannelInfo> list = new ArrayList<>();
-            while (rs.next()) {
-                int autoId = rs.getInt("auto_id");
-                String sourceId = rs.getString("source_id");
-                String sourceAreaId = rs.getString("source_area_id");
-                int isUsed = rs.getInt("is_used");
-                String pType2 = rs.getString("p_type_2");
-                ChannelInfo channelInfo = new ChannelInfo(autoId, sourceId, sourceAreaId, isUsed, pType2);
-                list.add(channelInfo);
-            }
-            return list;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            logger.error(e.toString());
-            return null;
-        }
-    }
-
-
     public ChannelInfo findBySourceAreaId(String sourceAreaId) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_info WHERE source_area_id = ?")) {
@@ -193,6 +169,19 @@ public class ChannelInfoDao {
         }
     }
 
+
+    public int findNumOfData() {
+        try (PreparedStatement preparedStatement = conn.prepareStatement(
+                "SELECT COUNT(auto_id) FROM channel_info")) {
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            return rs.getInt("COUNT(auto_id)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
+        }
+        return 0;
+    }
 }
 
 

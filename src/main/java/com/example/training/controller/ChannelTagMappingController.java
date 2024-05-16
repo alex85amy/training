@@ -15,12 +15,6 @@ public class ChannelTagMappingController {
     private final ChannelTagMappingService channelTagMappingService = new ChannelTagMappingService();
     private final Logger logger = LogManager.getLogger();
 
-    @GetMapping("/all")
-    public List<ChannelTagMapping> index() {
-        logger.info("findAll channel_tag_mapping");
-        return channelTagMappingService.findAll();
-    }
-
     @GetMapping("/page")
     public List<ChannelTagMapping> findPageData(@RequestParam("amount") int amount,
                                                 @RequestParam("page") int page) {
