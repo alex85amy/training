@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Main-Class: com.example.training.TrainingApplication
+Class-Path: jackson-module-parameter-names-2.15.4.jar micrometer-commons
+ -1.11.10.jar spring-boot-starter-json-3.1.10.jar hibernate-core-6.2.22.
+ Final.jar mysql-connector-j-8.0.33.jar tomcat-embed-core-10.1.19.jar lo
+ g4j-api-2.23.1.jar jaxb-runtime-4.0.5.jar spring-boot-starter-web-3.1.1
+ 0.jar spring-core-6.0.18.jar spring-boot-starter-jdbc-3.1.10.jar spring
+ -aspects-6.0.18.jar spring-beans-6.0.18.jar antlr4-runtime-4.10.1.jar j
+ ackson-datatype-jsr310-2.15.4.jar istack-commons-runtime-4.1.2.jar tomc
+ at-embed-websocket-10.1.19.jar jakarta.transaction-api-2.0.1.jar spring
+ -jcl-6.0.18.jar jandex-3.0.5.jar spring-boot-starter-aop-3.1.10.jar Hik
+ ariCP-5.0.1.jar hibernate-commons-annotations-6.0.6.Final.jar jakarta.a
+ ctivation-api-2.1.3.jar jakarta.annotation-api-2.1.1.jar micrometer-obs
+ ervation-1.11.10.jar jakarta.inject-api-2.0.1.jar classmate-1.5.1.jar s
+ pring-expression-6.0.18.jar jackson-core-2.15.4.jar spring-boot-3.1.10.
+ jar jaxb-core-4.0.5.jar spring-boot-starter-3.1.10.jar lombok-1.18.30.j
+ ar gson-2.8.5.jar jackson-datatype-jdk8-2.15.4.jar gson-2.8.5.jar sprin
+ g-boot-starter-tomcat-3.1.10.jar surefire-shared-utils-3.0.0.jar super-
+ csv-2.4.0.jar spring-orm-6.0.18.jar byte-buddy-1.14.12.jar log4j-core-2
+ .23.1.jar spring-boot-starter-data-jpa-3.1.10.jar spring-boot-autoconfi
+ gure-3.1.10.jar txw2-4.0.5.jar log4j-core-2.23.1.jar jboss-logging-3.5.
+ 3.Final.jar spring-aop-6.0.18.jar junit-4.13.2.jar spring-tx-6.0.18.jar
+  spring-data-commons-3.1.10.jar slf4j-api-2.0.12.jar angus-activation-2
+ .0.2.jar jakarta.persistence-api-3.1.0.jar snakeyaml-1.33.jar spring-we
+ b-6.0.18.jar tomcat-embed-el-10.1.19.jar spring-context-6.0.18.jar hamc
+ rest-core-2.2.jar aspectjweaver-1.9.21.jar jakarta.xml.bind-api-4.0.2.j
+ ar spring-test-6.0.18.jar log4j-api-2.23.1.jar jackson-databind-2.15.4.
+ jar spring-boot-devtools-3.1.10.jar spring-data-jpa-3.1.10.jar hamcrest
+ -2.2.jar spring-webmvc-6.0.18.jar jackson-annotations-2.15.4.jar spring
+ -jdbc-6.0.18.jar
+
