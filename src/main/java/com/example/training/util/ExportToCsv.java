@@ -20,6 +20,26 @@ public class ExportToCsv {
     private final Logger logger = LogManager.getLogger();
 
     public byte[] exportCsv() {
+        String insertSQL = "SELECT " +
+                "    t.tag_name AS 'tag_name'," +
+                "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'news'  THEN c.source_area_id ELSE NULL END) AS '新聞'," +
+                "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'blog'  THEN c.source_area_id ELSE NULL END) AS '部落格'," +
+                "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'forum'  THEN c.source_area_id ELSE NULL END) AS '討論區'," +
+                "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'social'  THEN c.source_area_id ELSE NULL END) AS '社群網站'," +
+                "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'comment'  THEN c.source_area_id ELSE NULL END) AS '評論'," +
+                "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'qa'  THEN c.source_area_id ELSE NULL END) AS '問答網站'," +
+                "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'video'  THEN c.source_area_id ELSE NULL END) AS '影音'," +
+                "    t.type as 'type'" +
+                " FROM " +
+                "    tag_info t" +
+                " LEFT JOIN " +
+                "    channel_tag_mapping m ON t.tag_id = m.tag_id" +
+                " LEFT JOIN " +
+                "    channel_info c ON m.s_area_id = c.source_area_id" +
+                " GROUP BY " +
+                "    t.tag_name,  t.type" +
+                " ORDER BY " +
+                "    t.type, t.tag_name;";
         try (PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
              ResultSet resultSet = preparedStatement.executeQuery();
              ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -164,26 +184,6 @@ public class ExportToCsv {
     }
 
 
-    private final String insertSQL = "SELECT " +
-            "    t.tag_name AS 'tag_name'," +
-            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'news'  THEN c.source_area_id ELSE NULL END) AS '新聞'," +
-            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'blog'  THEN c.source_area_id ELSE NULL END) AS '部落格'," +
-            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'forum'  THEN c.source_area_id ELSE NULL END) AS '討論區'," +
-            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'social'  THEN c.source_area_id ELSE NULL END) AS '社群網站'," +
-            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'comment'  THEN c.source_area_id ELSE NULL END) AS '評論'," +
-            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'qa'  THEN c.source_area_id ELSE NULL END) AS '問答網站'," +
-            "    COUNT(DISTINCT CASE WHEN c.p_type_2 = 'video'  THEN c.source_area_id ELSE NULL END) AS '影音'," +
-            "    t.type as 'type'" +
-            " FROM " +
-            "    tag_info t" +
-            " LEFT JOIN " +
-            "    channel_tag_mapping m ON t.tag_id = m.tag_id" +
-            " LEFT JOIN " +
-            "    channel_info c ON m.s_area_id = c.source_area_id" +
-            " GROUP BY " +
-            "    t.tag_name,  t.type" +
-            " ORDER BY " +
-            "    t.type, t.tag_name;";
 }
 
 
