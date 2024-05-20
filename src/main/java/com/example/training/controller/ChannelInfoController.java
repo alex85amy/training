@@ -30,21 +30,22 @@ public class ChannelInfoController {
 
     @PostMapping("/add")
     public void addChannelInfo(@RequestBody List<ChannelInfo> channelInfos) {
+        logger.info("addChannelInfo");
         for (ChannelInfo channelInfo : channelInfos) {
             channelInfoService.add(channelInfo);
         }
-        logger.info("addChannelInfo");
     }
 
     @PutMapping("/{id}")
-    public void updateChannelInfo(@PathVariable("id") int id, ChannelInfo channelInfo) {
-        channelInfoService.update(id, channelInfo);
+    public void updateChannelInfo(@PathVariable("id") int id,
+                                  @RequestBody ChannelInfo channelInfo) {
         logger.info("updateChannelInfo ID: " + id);
+        channelInfoService.update(id, channelInfo);
     }
 
     @DeleteMapping("/{id}")
     public void removeChannelInfo(@PathVariable("id") int id) {
-        channelInfoService.delete(id);
         logger.info("removeChannelInfo ID: " + id);
+        channelInfoService.delete(id);
     }
 }

@@ -30,21 +30,22 @@ public class TagInfoController {
 
     @PostMapping("/add")
     public void addTagInfo(@RequestBody List<TagInfo> tagInfos) {
+        logger.info("addTagInfo");
         for (TagInfo tagInfo : tagInfos) {
             tagInfoService.add(tagInfo);
         }
-        logger.info("addTagInfo");
     }
 
     @PutMapping("/{id}")
-    public void updateTagInfo(@PathVariable("id") int id, TagInfo tagInfo) {
-        tagInfoService.update(id, tagInfo);
+    public void updateTagInfo(@PathVariable("id") int id,
+                              @RequestBody TagInfo tagInfo) {
         logger.info("updateTagInfo ID: " + id);
+        tagInfoService.update(id, tagInfo);
     }
 
     @DeleteMapping("/{id}")
     public void removeTagInfo(@PathVariable("id") int id) {
-        tagInfoService.delete(id);
         logger.info("removeTagInfo ID: " + id);
+        tagInfoService.delete(id);
     }
 }

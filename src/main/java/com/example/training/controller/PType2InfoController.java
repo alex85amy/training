@@ -30,21 +30,22 @@ public class PType2InfoController {
 
     @PostMapping("/add")
     public void addPType2Info(@RequestBody List<PType2Info> pType2Infos) {
+        logger.info("addPType2Info");
         for (PType2Info pType2Info : pType2Infos) {
             pType2InfoService.add(pType2Info);
         }
-        logger.info("addPType2Info");
     }
 
     @PutMapping("/{id}")
-    public void updatePType2Info(@PathVariable("id") int id, PType2Info pType2Info) {
-        pType2InfoService.update(id, pType2Info);
+    public void updatePType2Info(@PathVariable("id") int id,
+                                 @RequestBody PType2Info pType2Info) {
         logger.info("updatePType2Info ID: " + id);
+        pType2InfoService.update(id, pType2Info);
     }
 
     @DeleteMapping("/{id}")
     public void removePType2Info(@PathVariable("id") int id) {
-        pType2InfoService.delete(id);
         logger.info("removePType2Info ID: " + id);
+        pType2InfoService.delete(id);
     }
 }

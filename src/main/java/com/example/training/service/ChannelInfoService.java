@@ -19,6 +19,7 @@ public class ChannelInfoService {
         ChannelInfo data = channelInfoDao.findBySourceAreaId(channelInfo.getSourceAreaId());
         if (data == null) {
             channelInfoDao.add(channelInfo);
+            logger.info("新增成功");
         } else
             logger.error("新增失敗: 資料重複");
     }
@@ -27,6 +28,7 @@ public class ChannelInfoService {
         ChannelInfo data = channelInfoDao.findById(id);
         if (data != null) {
             channelInfoDao.delete(id);
+            logger.info("刪除成功");
         } else
             logger.error("刪除失敗: 無此資料");
     }
@@ -35,16 +37,29 @@ public class ChannelInfoService {
         ChannelInfo data = channelInfoDao.findById(id);
         if (data != null) {
             channelInfoDao.update(id, channelInfo);
+            logger.info("修改成功");
         } else
             logger.error("修改失敗: 無此資料");
     }
 
     public ChannelInfo findById(int id) {
-        return channelInfoDao.findById(id);
+        ChannelInfo data = channelInfoDao.findById(id);
+        if (data != null) {
+            logger.info("查詢成功");
+            return data;
+        } else
+            logger.error("查詢失敗: 無此資料");
+        return null;
     }
 
     public List<ChannelInfo> findPageData(int amount, int page) {
-        return channelInfoDao.findPageData(amount, page);
+        List<ChannelInfo> list = channelInfoDao.findPageData(amount, page);
+        if (list.size() != 0) {
+            logger.info("查詢成功");
+            return list;
+        } else
+            logger.error("查詢失敗: 無此資料");
+        return null;
     }
 
 }

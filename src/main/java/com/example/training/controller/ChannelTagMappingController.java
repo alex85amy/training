@@ -42,21 +42,22 @@ public class ChannelTagMappingController {
 
     @PostMapping("/add")
     public void addChannelTagMapping(@RequestBody List<ChannelTagMapping> channelTagMappings) {
+        logger.info("addChannelTagMapping");
         for (ChannelTagMapping channelTagMapping : channelTagMappings) {
             channelTagMappingService.add(channelTagMapping);
         }
-        logger.info("addChannelTagMapping");
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable("id") int id, ChannelTagMapping channelTagMapping) {
-        channelTagMappingService.update(id, channelTagMapping);
+    public void update(@PathVariable("id") int id,
+                       @RequestBody ChannelTagMapping channelTagMapping) {
         logger.info("updateChannelTagMapping ID: " + id);
+        channelTagMappingService.update(id, channelTagMapping);
     }
 
     @DeleteMapping("/{id}")
     public void removeChannelTagMapping(@PathVariable("id") int id) {
-        channelTagMappingService.delete(id);
         logger.info("removeChannelTagMapping ID: " + id);
+        channelTagMappingService.delete(id);
     }
 }

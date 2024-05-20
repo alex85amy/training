@@ -19,6 +19,7 @@ public class PType2InfoService {
         PType2Info data = pType2InfoDao.findByCategoryOrName(pType2Info.getCategory(), pType2Info.getName());
         if (data == null) {
             pType2InfoDao.add(pType2Info);
+            logger.info("新增成功");
         } else
             logger.error("新增失敗: 資料重複");
     }
@@ -27,6 +28,7 @@ public class PType2InfoService {
         PType2Info data = pType2InfoDao.findById(id);
         if (data != null) {
             pType2InfoDao.delete(id);
+            logger.info("刪除成功");
         } else
             logger.error("刪除失敗: 無此資料");
     }
@@ -35,16 +37,29 @@ public class PType2InfoService {
         PType2Info data = pType2InfoDao.findById(id);
         if (data != null) {
             pType2InfoDao.update(id, pType2Info);
+            logger.info("修改成功");
         } else
             logger.error("修改失敗: 無此資料");
     }
 
     public PType2Info findById(int id) {
-        return pType2InfoDao.findById(id);
+        PType2Info data = pType2InfoDao.findById(id);
+        if (data != null) {
+            logger.info("查詢成功");
+            return data;
+        } else
+            logger.error("查詢失敗: 無此資料");
+        return null;
     }
 
     public List<PType2Info> findPageData(int amount, int page) {
-        return pType2InfoDao.findPageData(amount, page);
+        List<PType2Info> list = pType2InfoDao.findPageData(amount, page);
+        if (list.size() != 0) {
+            logger.info("查詢成功");
+            return list;
+        } else
+            logger.error("查詢失敗: 無此資料");
+        return null;
     }
 
 
