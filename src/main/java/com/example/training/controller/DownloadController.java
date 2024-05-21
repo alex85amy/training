@@ -1,6 +1,6 @@
 package com.example.training.controller;
 
-import com.example.training.util.ExportToCsv;
+import com.example.training.service.ExportToCsvService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 @RestController
 @RequestMapping("/download")
 public class DownloadController {
-    private final ExportToCsv exportToCsv = new ExportToCsv();
+    private final ExportToCsvService exportToCsv = new ExportToCsvService();
     private final Logger logger = LogManager.getLogger();
 
     @GetMapping("/")

@@ -1,4 +1,4 @@
-package com.example.training.util;
+package com.example.training.bean;
 
 public class TagCount {
     private String tagName;
